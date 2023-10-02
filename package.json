@@ -1,6 +1,6 @@
 {
   "name": "@bqx/just-okay-ui",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "The packages with just okay UI components",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
