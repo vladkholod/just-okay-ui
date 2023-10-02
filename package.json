@@ -1,0 +1,26 @@
+{
+  "name": "@bqx/just-okay-ui",
+  "version": "1.0.0",
+  "description": "The packages with just okay UI components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladkholod/just-okay-ui.git"
+  },
+  "keywords": [
+    "just-okay-ui",
+    "just",
+    "okay",
+    "ui",
+    "component"
+  ],
+  "author": "Vladyslav Kholod",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vladkholod/just-okay-ui/issues"
+  },
+  "homepage": "https://github.com/vladkholod/just-okay-ui#readme"
+}
