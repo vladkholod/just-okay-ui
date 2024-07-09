@@ -1,0 +1,90 @@
+@import '../variables.scss';
+
+$baseLoaderWidth: 50px;
+$baseLoaderHeight: 20px;
+$basePointerWidth: 8px;
+$baseBorderWidth: 2px;
+
+.#{$lib-prefix}-loader {
+    --loader-multiplier: 2;
+    --loader-border-width: 3px;
+    --loader-padding: 2px;
+    --loader-duration: 1.5s;
+
+    width: calc(50px * var(--loader-multiplier));
+    height: calc(20px * var(--loader-multiplier));
+
+    background-color: lightgrey;
+    border: var(--loader-border-width) solid grey;
+
+    padding: var(--loader-padding);
+
+    &--xs {
+        --loader-multiplier: 0.5;
+        --loader-border-width: 2px;
+        --loader-padding: 1px;
+    }
+
+    &--sm {
+        --loader-multiplier: 1;
+        --loader-border-width: 3px;
+        --loader-padding: 2px;
+    }
+
+    &--md {
+        --loader-multiplier: 2;
+        --loader-border-width: 3px;
+        --loader-padding: 2px;
+    }
+
+    &--lg {
+        --loader-multiplier: 3;
+        --loader-border-width: 4px;
+        --loader-padding: 3px;
+    }
+
+    &--fast {
+        --loader-duration: 1s;
+    }
+
+    &--slow {
+        --loader-duration: 2s;
+    }
+
+    &__pointer {
+        --loader-pointer-width: 8px;
+        width: calc(var(--loader-pointer-width) * var(--loader-multiplier));
+        height: 100%;
+        background-color: grey;
+
+        animation: moveLoader var(--loader-duration) ease-in-out infinite;
+
+        @keyframes moveLoader {
+            50% {
+                margin-left: calc(100% - calc(var(--loader-pointer-width) * var(--loader-multiplier)));
+            }
+        }
+    }
+
+    &__container {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        &--blur {
+            backdrop-filter: blur(4px);
+        }
+
+        &--off {
+            display: none;
+        }
+    }
+}
