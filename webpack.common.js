@@ -1,10 +1,21 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.ts',
+    output: {
+        path: path.resolve(__dirname, 'lib'),
+        filename: 'index.js',
+        library: {
+            name: 'JO',
+            type: 'umd',
+        },
+        globalObject: 'this',
+        clean: true,
+    },
     module: {
         rules: [
             {
@@ -26,7 +37,14 @@ module.exports = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles/[name].css',
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'src/styles', to: 'styles' },
+            ],
+        }),
         new ESLintPlugin({
             fix: true,
             extensions: ['ts'],
@@ -41,13 +59,5 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.ts'],
-    },
-    output: {
-        path: path.resolve(__dirname, 'lib'),
-        filename: 'index.js',
-        library: 'just-okay-ui',
-        libraryTarget: 'umd',
-        globalObject: 'this',
-        clean: true,
     },
 };
