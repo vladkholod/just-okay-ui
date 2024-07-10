@@ -28,7 +28,7 @@ export const classNames = {
             element: loaderContainerElement,
             modifiers: {
                 blur: elementModifier(loaderContainerElement, 'blur'),
-                off: elementModifier(loaderContainerElement, 'off'),
+                hidden: elementModifier(loaderContainerElement, 'hidden'),
             },
         },
     },

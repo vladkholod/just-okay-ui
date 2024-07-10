@@ -8,40 +8,50 @@ import { eb } from '../../utils/html';
 
 export class Loader implements Disposable<void> {
     private readonly config: Required<LoaderConfig>;
-    private readonly wrapper: HTMLElement;
+    private readonly container: HTMLElement;
 
     private appended = false;
-    private loading = false;
+    private shown = false;
     private disposed = false;
 
     public constructor(config: LoaderConfig) {
         this.config = Loader.initConfig(config);
 
-        this.wrapper = Loader.createContainer(this.config);
+        this.container = Loader.createContainer(this.config);
     }
 
-    public on(): void {
+    public show(): void {
         if (this.disposed) {
             return;
         }
 
-        this.loading = !this.loading;
+        if (this.shown) { 
+            return;
+        }
+
+        this.shown = true;
 
         if (!this.appended) {
-            this.config.container.appendChild(this.wrapper);
+            this.config.target.appendChild(this.container);
 
             this.appended = true;
         }
 
-        this.wrapper.classList.remove(classNames.loader.container.modifiers.off);
+        this.container.classList.remove(classNames.loader.container.modifiers.hidden);
     }
 
-    public off(): void {
+    public hide(): void {
         if (this.disposed) {
             return;
         }
 
-        this.wrapper.classList.add(classNames.loader.container.modifiers.off);
+        if (!this.shown) { 
+            return;
+        }
+
+        this.shown = false;
+
+        this.container.classList.add(classNames.loader.container.modifiers.hidden);
     }
 
     public dispose(): void {
@@ -49,7 +59,7 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.wrapper.remove();
+        this.container.remove();
 
         this.disposed = true;
     }
@@ -75,18 +85,18 @@ export class Loader implements Disposable<void> {
             .withClass(classNames.loader.container.modifiers.blur)
             .withChild(loaderElement)
             .build();
-        
+
         return containerElement;
     }
 
     private static initConfig(config: LoaderConfig): Required<LoaderConfig> {
-        const container = config.container ?? document.body;
+        const container = config.target ?? document.body;
 
         return {
             size: config.size ?? DEFAULT_SIZE,
             pace: config.pace ?? DEFAULT_PACE,
             blur: config.blur ?? DEFAULT_BLUR,
-            container,
+            target: container,
         };
     }
 }
