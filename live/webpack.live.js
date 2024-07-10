@@ -7,13 +7,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = merge(common, {
     entry: './live/index.ts',
     mode: 'development',
+    watch: true,
     devtool: 'eval-source-map',
     devServer: {
-        static: './dist',
+        static: '../dist',
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
         clean: true,
     },
     plugins: [
