@@ -10,4 +10,5 @@ export interface ModalConfig {
     content?: ModalContent;
     size?: Size;
     blur?: boolean;
+    destroyOnClose?: boolean;
 }

@@ -1,6 +1,7 @@
-import { block, blockModifier } from '../../utils/css';
+import { block, blockModifier, element } from '../../utils/css';
 
 const modalBlock = block('modal');
+const crossElement = element(modalBlock, 'cross');
 
 export const classNames = {
     modal: {
@@ -12,6 +13,10 @@ export const classNames = {
                 md: blockModifier(modalBlock, 'md'),
                 lg: blockModifier(modalBlock, 'lg'),
             },
+            hidden: blockModifier(modalBlock, 'hidden'),
+        },
+        cross: {
+            element: crossElement,
         },
     },
 } as const;
