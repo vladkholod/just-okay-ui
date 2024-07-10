@@ -13,6 +13,8 @@ logs
 results
 tmp
 
+.vscode
+
 # Coverage reports
 coverage
 
@@ -32,6 +34,7 @@ Thumbs.db
 
 # Ignore built ts files
 lib
+dist
 
 # ignore yarn.lock
 yarn.lock
