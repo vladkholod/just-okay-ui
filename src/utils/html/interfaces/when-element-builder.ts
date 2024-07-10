@@ -1,5 +1,4 @@
-import { OmitExact } from "../types";
-import { ElementBuilder } from "./element-builder";
-
+import { OmitExact } from '../../types';
+import { ElementBuilder } from './element-builder';
 
 export type WhenElementBuilder = OmitExact<ElementBuilder, 'when' | 'build'>;

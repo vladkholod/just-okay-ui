@@ -30,8 +30,9 @@ export class DefaultElementBuilder implements ElementBuilder {
         if (this.predicate?.() !== false) {
             this.config.classNames ??= [];
             this.config.classNames.push(className, ...rest);
-            this.predicate = undefined;
         }
+
+        this.predicate = undefined;
 
         return this;
     }
@@ -40,8 +41,9 @@ export class DefaultElementBuilder implements ElementBuilder {
         if (this.predicate?.() !== false) {
             this.config.children ??= [];
             this.config.children.push(child, ...rest);
-            this.predicate = undefined;
         }
+
+        this.predicate = undefined;
 
         return this;
     }
