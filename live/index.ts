@@ -2,7 +2,6 @@
 import '../src/styles/main.scss';
 
 import { Loader } from '../src/components/loader';
-import { Modal } from '../src/components/modal';
 import { eb } from '@bqx/html-element-builder';
 
 (() => {
@@ -12,14 +11,8 @@ import { eb } from '@bqx/html-element-builder';
         return;
     }
 
-    app.innerText = '';
+    app.innerText = 'test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test';
 
-    new Modal({
-        size: 'md',
-        blur: true,
-        destroyOnClose: false,
-    }).show();
+    new Loader({ blur: true, size: 'lg' }).on();
 
-    // setInterval(() => modal.show(), 1_000);
-    // setInterval(() => modal.close(), 2_000);
 })();
