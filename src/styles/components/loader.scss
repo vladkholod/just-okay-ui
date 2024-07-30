@@ -1,18 +1,18 @@
+@import '../mixins.scss';
 @import '../variables.scss';
 
-$baseLoaderWidth: 50px;
-$baseLoaderHeight: 20px;
-$basePointerWidth: 8px;
-$baseBorderWidth: 2px;
-
 .#{$lib-prefix}-loader {
+    $baseLoaderWidth: 50px;
+    $baseLoaderHeight: 20px;
+    $basePointerWidth: 8px;
+
     --loader-multiplier: 2;
     --loader-border-width: 3px;
     --loader-padding: 2px;
     --loader-duration: 1.5s;
 
-    width: calc(50px * var(--loader-multiplier));
-    height: calc(20px * var(--loader-multiplier));
+    width: calc(#{$baseLoaderWidth} * var(--loader-multiplier));
+    height: calc(#{$baseLoaderHeight} * var(--loader-multiplier));
 
     background-color: lightgrey;
     border: var(--loader-border-width) solid grey;
@@ -52,8 +52,7 @@ $baseBorderWidth: 2px;
     }
 
     &__pointer {
-        --loader-pointer-width: 8px;
-        width: calc(var(--loader-pointer-width) * var(--loader-multiplier));
+        width: calc(#{$basePointerWidth} * var(--loader-multiplier));
         height: 100%;
         background-color: grey;
 
@@ -61,7 +60,7 @@ $baseBorderWidth: 2px;
 
         @keyframes moveLoader {
             50% {
-                margin-left: calc(100% - calc(var(--loader-pointer-width) * var(--loader-multiplier)));
+                margin-left: calc(100% - calc(#{$basePointerWidth} * var(--loader-multiplier)));
             }
         }
     }
@@ -80,7 +79,7 @@ $baseBorderWidth: 2px;
         justify-content: center;
 
         &--blur {
-            backdrop-filter: blur(4px);
+            @include blur;
         }
 
         &--off {

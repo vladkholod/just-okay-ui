@@ -1,24 +1,25 @@
 import { DEFAULTS } from '../../constants/defaults';
-import { block, blockModifier, element, elementModifier } from '../../utils/css';
+import { bem } from '@bqx/bem';
+import { getLibBlockName } from '../../utils/bem';
 
-const loaderBlock = block('loader');
-const loaderPointerElement = element(loaderBlock, 'pointer');
-const loaderContainerElement = element(loaderBlock, 'container');
+const loaderBlock = bem.block(getLibBlockName('loader'));
+const loaderPointerElement = bem.element(loaderBlock, 'pointer');
+const loaderContainerElement = bem.element(loaderBlock, 'container');
 
 export const classNames = {
     loader: {
         element: loaderBlock,
         modifiers: {
             size: {
-                xs: blockModifier(loaderBlock, 'xs'),
-                sm: blockModifier(loaderBlock, 'sm'),
-                md: blockModifier(loaderBlock, 'md'),
-                lg: blockModifier(loaderBlock, 'lg'),
+                xs: bem.blockModifier(loaderBlock, 'xs'),
+                sm: bem.blockModifier(loaderBlock, 'sm'),
+                md: bem.blockModifier(loaderBlock, 'md'),
+                lg: bem.blockModifier(loaderBlock, 'lg'),
             },
             duration: {
-                fast: blockModifier(loaderBlock, 'fast'),
+                fast: bem.blockModifier(loaderBlock, 'fast'),
                 default: DEFAULTS.css.unspecified,
-                slow: blockModifier(loaderBlock, 'slow'),
+                slow: bem.blockModifier(loaderBlock, 'slow'),
             },
         },
         pointer: {
@@ -27,8 +28,8 @@ export const classNames = {
         container: {
             element: loaderContainerElement,
             modifiers: {
-                blur: elementModifier(loaderContainerElement, 'blur'),
-                off: elementModifier(loaderContainerElement, 'off'),
+                blur: bem.elementModifier(loaderContainerElement, 'blur'),
+                hidden: bem.elementModifier(loaderContainerElement, 'hidden'),
             },
         },
     },

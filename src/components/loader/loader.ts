@@ -4,7 +4,7 @@ import { Disposable } from '../../shared/models/disposable';
 import { DEFAULT_SIZE } from '../../shared/models/size';
 import { DEFAULT_PACE } from '../../shared/models/pace';
 import { DEFAULT_BLUR } from '../../shared/models/blur';
-import { eb } from '../../utils/html';
+import { eb } from '@bqx/html-element-builder';
 
 export class Loader implements Disposable<void> {
     private readonly config: Required<LoaderConfig>;
@@ -33,7 +33,7 @@ export class Loader implements Disposable<void> {
             this.appended = true;
         }
 
-        this.wrapper.classList.remove(classNames.loader.container.modifiers.off);
+        this.wrapper.classList.remove(classNames.loader.container.modifiers.hidden);
     }
 
     public off(): void {
@@ -41,7 +41,7 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.wrapper.classList.add(classNames.loader.container.modifiers.off);
+        this.wrapper.classList.add(classNames.loader.container.modifiers.hidden);
     }
 
     public dispose(): void {
