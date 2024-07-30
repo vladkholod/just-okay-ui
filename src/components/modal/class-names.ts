@@ -1,19 +1,21 @@
-import { block, blockModifier, element } from '../../utils/css';
+import { bem } from '@bqx/bem';
+import { getLibBlockName } from '../../utils/bem';
 
-const modalBlock = block('modal');
-const crossElement = element(modalBlock, 'cross');
+const modalBlock = bem.block(getLibBlockName('modal'));
+const crossElement = bem.element(modalBlock, 'cross');
 
 export const classNames = {
     modal: {
         element: modalBlock,
         modifiers: {
             size: {
-                xs: blockModifier(modalBlock, 'xs'),
-                sm: blockModifier(modalBlock, 'sm'),
-                md: blockModifier(modalBlock, 'md'),
-                lg: blockModifier(modalBlock, 'lg'),
+                xs: bem.blockModifier(modalBlock, 'xs'),
+                sm: bem.blockModifier(modalBlock, 'sm'),
+                md: bem.blockModifier(modalBlock, 'md'),
+                lg: bem.blockModifier(modalBlock, 'lg'),
             },
-            hidden: blockModifier(modalBlock, 'hidden'),
+            hidden: bem.blockModifier(modalBlock, 'hidden'),
+            blur: bem.blockModifier(modalBlock, 'blur'),
         },
         cross: {
             element: crossElement,

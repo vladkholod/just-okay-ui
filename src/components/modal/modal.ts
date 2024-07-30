@@ -1,7 +1,7 @@
 import { DEFAULT_BLUR } from '../../shared/models/blur';
 import { Disposable } from '../../shared/models/disposable';
 import { DEFAULT_SIZE } from '../../shared/models/size';
-import { eb } from '../../utils/html';
+import { eb } from '@bqx/html-element-builder';
 import { classNames } from './class-names';
 import { ModalConfig } from './modal-config';
 
@@ -81,7 +81,12 @@ export class Modal implements Disposable<void> {
             .build();
 
         const container = eb('div')
-            .withClass(classNames.modal.element)
+            .withClass(
+                classNames.modal.element,
+                classNames.modal.modifiers.size[config.size],
+            )
+            .when(() => config.blur)
+            .withClass(classNames.modal.modifiers.blur)
             .withChild(cross)
             .when(() => title !== undefined)
             .withChild(title!)

@@ -1,1 +1,63 @@
+@import '../mixins.scss';
 @import '../variables.scss';
+
+.#{$lib-prefix}-modal {
+    $baseModalWidth: 600px;
+
+    --modal-size-multiplier: 2;
+    --modal-border-width: 2px;
+    --modal-padding: 1px;
+
+    @function calc-modal-width() {
+        @return calc(#{$baseModalWidth} * var(--modal-size-multiplier));
+    }
+
+    background-color: orangered;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: calc-modal-width();
+    aspect-ratio: 16/9;
+
+    &--xs {
+        --modal-size-multiplier: 0.75;
+        --modal-border-width: 2px;
+        --modal-padding: 1px;
+    }
+
+    &--sm {
+        --modal-size-multiplier: 1;
+        --modal-border-width: 3px;
+        --modal-padding: 2px;
+    }
+
+    &--md {
+        --modal-size-multiplier: 1.5;
+        --modal-border-width: 3px;
+        --modal-padding: 2px;
+    }
+
+    &--lg {
+        --modal-size-multiplier: 2;
+        --modal-border-width: 4px;
+        --modal-padding: 3px;
+    }
+
+    &--blur {
+        @include blur;
+    }
+
+    &--hidden {
+        display: none;
+    }
+
+    &__cross {
+        position: absolute;
+
+        top: 0;
+        right: 0;
+    }
+}
