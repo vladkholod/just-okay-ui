@@ -2,7 +2,7 @@ import { LoaderConfig } from './loader-config';
 import { classNames } from './class-names';
 import { Disposable } from '../../shared/models/disposable';
 import { DEFAULT_SIZE } from '../../shared/models/size';
-import { DEFAULT_PACE } from '../../shared/models/pace';
+import { DEFAULT_SPEED } from '../../shared/models/speed';
 import { DEFAULT_BLUR } from '../../shared/models/blur';
 import { eb } from '@bqx/html-element-builder';
 
@@ -64,8 +64,8 @@ export class Loader implements Disposable<void> {
                 classNames.loader.element,
                 classNames.loader.modifiers.size[config.size],
             )
-            .when(() => config.pace !== 'regular')
-            .withClass(classNames.loader.modifiers.pace[config.pace])
+            .when(() => config.pointerSpeed !== DEFAULT_SPEED)
+            .withClass(classNames.loader.modifiers.pointerSpeed[config.pointerSpeed])
             .withChild(pointerElement)
             .build();
 
@@ -84,7 +84,7 @@ export class Loader implements Disposable<void> {
 
         return {
             size: config.size ?? DEFAULT_SIZE,
-            pace: config.pace ?? DEFAULT_PACE,
+            pointerSpeed: config.pointerSpeed ?? DEFAULT_SPEED,
             blur: config.blur ?? DEFAULT_BLUR,
             target,
         };
