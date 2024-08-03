@@ -1,3 +1,3 @@
-export type Pace = 'fast' | 'default' | 'slow';
+export type Pace = 'slow' | 'regular' | 'fast';
 
-export const DEFAULT_PACE: Pace = 'default' as const;
+export const DEFAULT_PACE: Pace = 'regular' as const;

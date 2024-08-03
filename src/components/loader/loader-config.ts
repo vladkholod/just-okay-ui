@@ -6,5 +6,5 @@ export interface LoaderConfig {
     size?: Size;
     pace?: Pace;
     blur?: Blur;
-    container?: HTMLElement;
+    target?: HTMLElement;
 }

@@ -1,6 +1,6 @@
-import { DEFAULTS } from '../../constants/defaults';
 import { bem } from '@bqx/bem';
-import { getLibBlockName } from '../../utils/bem';
+import { getLibBlockName, getPaceBlockModifiers } from '../../utils/bem';
+import { getSizeBlockModifiers } from '../../utils/bem/get-size-modifiers';
 
 const loaderBlock = bem.block(getLibBlockName('loader'));
 const loaderPointerElement = bem.element(loaderBlock, 'pointer');
@@ -10,17 +10,8 @@ export const classNames = {
     loader: {
         element: loaderBlock,
         modifiers: {
-            size: {
-                xs: bem.blockModifier(loaderBlock, 'xs'),
-                sm: bem.blockModifier(loaderBlock, 'sm'),
-                md: bem.blockModifier(loaderBlock, 'md'),
-                lg: bem.blockModifier(loaderBlock, 'lg'),
-            },
-            duration: {
-                fast: bem.blockModifier(loaderBlock, 'fast'),
-                default: DEFAULTS.css.unspecified,
-                slow: bem.blockModifier(loaderBlock, 'slow'),
-            },
+            size: getSizeBlockModifiers(loaderBlock),
+            pace: getPaceBlockModifiers(loaderBlock),
         },
         pointer: {
             element: loaderPointerElement,

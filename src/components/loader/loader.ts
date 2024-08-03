@@ -8,7 +8,7 @@ import { eb } from '@bqx/html-element-builder';
 
 export class Loader implements Disposable<void> {
     private readonly config: Required<LoaderConfig>;
-    private readonly wrapper: HTMLElement;
+    private readonly container: HTMLElement;
 
     private appended = false;
     private loading = false;
@@ -17,7 +17,7 @@ export class Loader implements Disposable<void> {
     public constructor(config: LoaderConfig) {
         this.config = Loader.initConfig(config);
 
-        this.wrapper = Loader.createContainer(this.config);
+        this.container = Loader.createContainer(this.config);
     }
 
     public on(): void {
@@ -28,12 +28,12 @@ export class Loader implements Disposable<void> {
         this.loading = !this.loading;
 
         if (!this.appended) {
-            this.config.container.appendChild(this.wrapper);
+            this.config.target.appendChild(this.container);
 
             this.appended = true;
         }
 
-        this.wrapper.classList.remove(classNames.loader.container.modifiers.hidden);
+        this.container.classList.remove(classNames.loader.container.modifiers.hidden);
     }
 
     public off(): void {
@@ -41,7 +41,7 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.wrapper.classList.add(classNames.loader.container.modifiers.hidden);
+        this.container.classList.add(classNames.loader.container.modifiers.hidden);
     }
 
     public dispose(): void {
@@ -49,7 +49,7 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.wrapper.remove();
+        this.container.remove();
 
         this.disposed = true;
     }
@@ -64,8 +64,8 @@ export class Loader implements Disposable<void> {
                 classNames.loader.element,
                 classNames.loader.modifiers.size[config.size],
             )
-            .when(() => config.pace !== 'default')
-            .withClass(classNames.loader.modifiers.duration[config.pace])
+            .when(() => config.pace !== 'regular')
+            .withClass(classNames.loader.modifiers.pace[config.pace])
             .withChild(pointerElement)
             .build();
 
@@ -80,13 +80,13 @@ export class Loader implements Disposable<void> {
     }
 
     private static initConfig(config: LoaderConfig): Required<LoaderConfig> {
-        const container = config.container ?? document.body;
+        const target = config.target ?? document.body;
 
         return {
             size: config.size ?? DEFAULT_SIZE,
             pace: config.pace ?? DEFAULT_PACE,
             blur: config.blur ?? DEFAULT_BLUR,
-            container,
+            target,
         };
     }
 }
