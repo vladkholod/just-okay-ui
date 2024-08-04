@@ -1,3 +1,5 @@
-@import './variables.scss';
-
 @import './components/loader.scss';
+@import './components/tooltip.scss';
+
+// theme
+@import './themes/default.scss';

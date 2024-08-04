@@ -5,10 +5,11 @@ import { DEFAULT_SIZE } from '../../shared/models/size';
 import { DEFAULT_SPEED } from '../../shared/models/speed';
 import { DEFAULT_BLUR } from '../../shared/models/blur';
 import { eb } from '@bqx/html-element-builder';
+import { Component } from '../component';
 
-export class Loader implements Disposable<void> {
+export class Loader implements Component, Disposable<void> {
     private readonly config: Required<LoaderConfig>;
-    private readonly container: HTMLElement;
+    public readonly element: HTMLElement;
 
     private appended = false;
     private loading = false;
@@ -17,7 +18,7 @@ export class Loader implements Disposable<void> {
     public constructor(config: LoaderConfig) {
         this.config = Loader.initConfig(config);
 
-        this.container = Loader.createContainer(this.config);
+        this.element = Loader.createDOM(this.config);
     }
 
     public on(): void {
@@ -28,12 +29,12 @@ export class Loader implements Disposable<void> {
         this.loading = !this.loading;
 
         if (!this.appended) {
-            this.config.target.appendChild(this.container);
+            this.config.target.appendChild(this.element);
 
             this.appended = true;
         }
 
-        this.container.classList.remove(classNames.loader.container.modifiers.hidden);
+        this.element.classList.remove(classNames.loader.container.modifiers.hidden);
     }
 
     public off(): void {
@@ -41,7 +42,7 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.container.classList.add(classNames.loader.container.modifiers.hidden);
+        this.element.classList.add(classNames.loader.container.modifiers.hidden);
     }
 
     public dispose(): void {
@@ -49,12 +50,12 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.container.remove();
+        this.element.remove();
 
         this.disposed = true;
     }
 
-    private static createContainer(config: Required<Omit<LoaderConfig, 'container'>>): HTMLElement {
+    private static createDOM(config: Required<Omit<LoaderConfig, 'container'>>): HTMLElement {
         const pointerElement = eb('div')
             .withClass(classNames.loader.pointer.element)
             .build();

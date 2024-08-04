@@ -1,3 +1,23 @@
 @mixin blur {
     backdrop-filter: blur(4px);
 }
+
+@mixin size-xs {
+    --multiplier: 0.5;
+}
+
+@mixin size-sm {
+    --multiplier: 0.75;
+}
+
+@mixin size-md {
+    --multiplier: 1;
+}
+
+@mixin size-lg {
+    --multiplier: 1.5;
+}
+
+@mixin off {
+    display: none;
+}
