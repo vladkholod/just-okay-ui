@@ -6,6 +6,10 @@ import { Loader } from '../src/components/loader';
 import { eb } from '@bqx/html-element-builder';
 
 (() => {
+    eb(document.body)
+        .withRawTransformation(element => element.style.backgroundColor = '#0e0f0f')
+        .build();
+
     const app = document.getElementById('app');
     if (!app) {
         console.error('app element is not found');
@@ -18,11 +22,9 @@ import { eb } from '@bqx/html-element-builder';
         .withRawTransformation(element => {
             element.style.width = '300px';
             element.style.aspectRatio = '1';
-            element.style.backgroundColor = 'black';
+            element.style.backgroundColor = 'darkslategray';
         })
         .build();
-
-    new Loader({target, size: 'md'}).on();
 
     const wrapper = eb('div')
         .withRawTransformation(element => {
@@ -34,7 +36,7 @@ import { eb } from '@bqx/html-element-builder';
         .withChild(target)
         .build();
 
-    new Tooltip({ target, position: 'top' });
+    new Tooltip({ target, size: 'lg', position: 'top', content: 'test', transition: 0 });
 
     eb(app)
         .withChild(wrapper)
