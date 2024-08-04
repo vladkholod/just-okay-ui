@@ -1,0 +1,63 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+.#{$lib-prefix}-tooltip {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: calc(200px * var(--multiplier));
+    min-height: calc(30px * var(--multiplier));
+
+    background-color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+
+    padding: 8px 16px;
+    word-wrap: break-word;
+
+    &--off {
+        @include off();
+    }
+
+    &--xs {
+        @include size-xs();
+    }
+
+    &--sm {
+        @include size-sm();
+    }
+
+    &--md {
+        @include size-md();
+    }
+
+    &--lg {
+        @include size-lg();
+    }
+
+    &--top {
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, -10px);
+    }
+
+    &--bottom {
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, calc(100% + 10px));
+    }
+
+    &--left {
+        bottom: 50%;
+        left: 0;
+        transform: translate(calc(-100% - 10px), 50%);
+    }
+
+    &--right {
+        bottom: 50%;
+        left: 100%;
+        transform: translate(10px, 50%);
+    }
+}
