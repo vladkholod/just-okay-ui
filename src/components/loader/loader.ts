@@ -2,56 +2,47 @@ import { LoaderConfig } from './loader-config';
 import { classNames } from './class-names';
 import { Disposable } from '../../shared/models/disposable';
 import { DEFAULT_SIZE } from '../../shared/models/size';
-import { DEFAULT_PACE } from '../../shared/models/pace';
+import { DEFAULT_SPEED } from '../../shared/models/speed';
 import { DEFAULT_BLUR } from '../../shared/models/blur';
-import { eb } from '../../utils/html';
+import { eb } from '@bqx/html-element-builder';
+import { Component } from '../component';
 
-export class Loader implements Disposable<void> {
+export class Loader implements Component, Disposable<void> {
     private readonly config: Required<LoaderConfig>;
-    private readonly container: HTMLElement;
+    public readonly element: HTMLElement;
 
     private appended = false;
-    private shown = false;
+    private loading = false;
     private disposed = false;
 
     public constructor(config: LoaderConfig) {
         this.config = Loader.initConfig(config);
 
-        this.container = Loader.createContainer(this.config);
+        this.element = Loader.createDOM(this.config);
     }
 
-    public show(): void {
+    public on(): void {
         if (this.disposed) {
             return;
         }
 
-        if (this.shown) { 
-            return;
-        }
-
-        this.shown = true;
+        this.loading = !this.loading;
 
         if (!this.appended) {
-            this.config.target.appendChild(this.container);
+            this.config.target.appendChild(this.element);
 
             this.appended = true;
         }
 
-        this.container.classList.remove(classNames.loader.container.modifiers.hidden);
+        this.element.classList.remove(classNames.loader.container.modifiers.off);
     }
 
-    public hide(): void {
+    public off(): void {
         if (this.disposed) {
             return;
         }
 
-        if (!this.shown) { 
-            return;
-        }
-
-        this.shown = false;
-
-        this.container.classList.add(classNames.loader.container.modifiers.hidden);
+        this.element.classList.add(classNames.loader.container.modifiers.off);
     }
 
     public dispose(): void {
@@ -59,12 +50,12 @@ export class Loader implements Disposable<void> {
             return;
         }
 
-        this.container.remove();
+        this.element.remove();
 
         this.disposed = true;
     }
 
-    private static createContainer(config: Required<Omit<LoaderConfig, 'container'>>): HTMLElement {
+    private static createDOM(config: Required<Omit<LoaderConfig, 'container'>>): HTMLElement {
         const pointerElement = eb('div')
             .withClass(classNames.loader.pointer.element)
             .build();
@@ -74,13 +65,16 @@ export class Loader implements Disposable<void> {
                 classNames.loader.element,
                 classNames.loader.modifiers.size[config.size],
             )
-            .when(() => config.pace !== 'default')
-            .withClass(classNames.loader.modifiers.duration[config.pace])
+            .when(() => config.pointerSpeed !== DEFAULT_SPEED)
+            .withClass(classNames.loader.modifiers.pointerSpeed[config.pointerSpeed])
             .withChild(pointerElement)
             .build();
 
         const containerElement = eb('div')
-            .withClass(classNames.loader.container.element)
+            .withClass(
+                classNames.loader.container.element,
+                classNames.loader.container.modifiers.off,
+            )
             .when(() => config.blur)
             .withClass(classNames.loader.container.modifiers.blur)
             .withChild(loaderElement)
@@ -90,13 +84,13 @@ export class Loader implements Disposable<void> {
     }
 
     private static initConfig(config: LoaderConfig): Required<LoaderConfig> {
-        const container = config.target ?? document.body;
+        const target = config.target ?? document.body;
 
         return {
             size: config.size ?? DEFAULT_SIZE,
-            pace: config.pace ?? DEFAULT_PACE,
+            pointerSpeed: config.pointerSpeed ?? DEFAULT_SPEED,
             blur: config.blur ?? DEFAULT_BLUR,
-            target: container,
+            target,
         };
     }
 }

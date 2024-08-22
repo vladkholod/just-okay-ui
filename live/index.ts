@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import '../src/styles/main.scss';
 
+import { Tooltip } from '../src/components/tooltip';
 import { Loader } from '../src/components/loader';
-import { Modal } from '../src/components/modal';
+import { eb } from '@bqx/html-element-builder';
 
 (() => {
+    eb(document.body)
+        .withRawTransformation(element => element.style.backgroundColor = '#0e0f0f')
+        .build();
+
     const app = document.getElementById('app');
     if (!app) {
         console.error('app element is not found');
@@ -13,20 +18,28 @@ import { Modal } from '../src/components/modal';
 
     app.innerText = '';
 
-    //new Loader({ size: 'lg', blur: true }).show();
-    const title = document.createElement('div');
-    title.style.width = '300px';
-    title.style.aspectRatio = '1';
-    title.style.backgroundColor = 'grey';
-    const modal = new Modal({
-        size: 'lg',
-        content: {
-            title,
-        },
-        destroyOnClose: false,
-    });
+    const target = eb('div')
+        .withRawTransformation(element => {
+            element.style.width = '300px';
+            element.style.aspectRatio = '1';
+            element.style.backgroundColor = 'darkslategray';
+        })
+        .build();
 
-    modal.show();
-    setInterval(() => modal.show(), 1_000);
-    setInterval(() => modal.close(), 2_000);
+    const wrapper = eb('div')
+        .withRawTransformation(element => {
+            element.style.position = 'fixed';
+            element.style.top = '50%';
+            element.style.left = '50%';
+            element.style.transform = 'translate(-50%,-50%)';
+        })
+        .withChild(target)
+        .build();
+
+    new Tooltip({ target, size: 'lg', position: 'top', content: 'test', transition: 0 });
+
+    eb(app)
+        .withChild(wrapper)
+        .build();
+
 })();

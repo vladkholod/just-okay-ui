@@ -1,4 +1,8 @@
-@import './variables.scss';
+@import './components/loader.scss';
+@import './components/tooltip.scss';
 
 @import './components/loader.scss';
 @import './components//modal.scss';
+
+// theme
+@import './themes/default.scss';

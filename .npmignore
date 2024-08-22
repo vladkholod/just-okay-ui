@@ -1,0 +1,8 @@
+node_modules
+src
+live
+dist-live
+
+tsconfig.json
+webpack.*.js
+.eslintrc.json
