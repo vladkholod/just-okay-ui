@@ -34,7 +34,7 @@ export class Loader implements Component, Disposable<void> {
             this.appended = true;
         }
 
-        this.element.classList.remove(classNames.loader.container.modifiers.hidden);
+        this.element.classList.remove(classNames.loader.container.modifiers.off);
     }
 
     public off(): void {
@@ -42,7 +42,7 @@ export class Loader implements Component, Disposable<void> {
             return;
         }
 
-        this.element.classList.add(classNames.loader.container.modifiers.hidden);
+        this.element.classList.add(classNames.loader.container.modifiers.off);
     }
 
     public dispose(): void {
@@ -71,12 +71,15 @@ export class Loader implements Component, Disposable<void> {
             .build();
 
         const containerElement = eb('div')
-            .withClass(classNames.loader.container.element)
+            .withClass(
+                classNames.loader.container.element,
+                classNames.loader.container.modifiers.off,
+            )
             .when(() => config.blur)
             .withClass(classNames.loader.container.modifiers.blur)
             .withChild(loaderElement)
             .build();
-        
+
         return containerElement;
     }
 

@@ -1,2 +1,2 @@
-export * from './loader';
-export * from './loader-config';
+export { LoaderConfig } from './loader-config';
+export { Loader } from './loader';

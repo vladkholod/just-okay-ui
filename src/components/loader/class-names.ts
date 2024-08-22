@@ -20,7 +20,7 @@ export const classNames = {
             element: loaderContainerElement,
             modifiers: {
                 blur: bem.elementModifier(loaderContainerElement, 'blur'),
-                hidden: bem.elementModifier(loaderContainerElement, 'hidden'),
+                off: bem.elementModifier(loaderContainerElement, 'off'),
             },
         },
     },
