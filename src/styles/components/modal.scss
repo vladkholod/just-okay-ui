@@ -2,62 +2,140 @@
 @import '../variables.scss';
 
 .#{$lib-prefix}-modal {
-    $baseModalWidth: 600px;
+    $baseModalPadding: 8px;
 
-    --modal-size-multiplier: 2;
-    --modal-border-width: 2px;
-    --modal-padding: 1px;
-
-    @function calc-modal-width() {
-        @return calc(#{$baseModalWidth} * var(--modal-size-multiplier));
+    @function apply-multiplier($value) {
+        @return calc(#{$value} * var(--multiplier));
     }
 
-    background-color: orangered;
+    z-index: 10000;
 
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: calc-modal-width();
+    width: apply-multiplier(600px);
     aspect-ratio: 16/9;
 
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
+
+    border: 3px solid var(--outline-color);
+
+    display: flex;
+    flex-direction: column;
+
     &--xs {
-        --modal-size-multiplier: 0.75;
-        --modal-border-width: 2px;
-        --modal-padding: 1px;
+        @include size-xs();
     }
 
     &--sm {
-        --modal-size-multiplier: 1;
-        --modal-border-width: 3px;
-        --modal-padding: 2px;
+        @include size-sm();
     }
 
     &--md {
-        --modal-size-multiplier: 1.5;
-        --modal-border-width: 3px;
-        --modal-padding: 2px;
+        @include size-md();
     }
 
     &--lg {
-        --modal-size-multiplier: 2;
-        --modal-border-width: 4px;
-        --modal-padding: 3px;
+        @include size-lg();
     }
 
-    &--blur {
-        @include blur;
+    &--full-screen {
+        width: 100vw;
+        height: 100vh;
     }
 
     &--hidden {
         display: none;
     }
 
-    &__cross {
-        position: absolute;
-
+    &__overlay {
+        position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+
+        overflow: hidden;
+
+        &--blur {
+            @include blur;
+        }
+
+        body:has(&) {
+            overflow: hidden;
+        }
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+
+        padding: apply-multiplier($baseModalPadding);
+
+        background-color: var(--primary-color);
+        border-bottom: 1px solid var(--outline-color);
+
+        &__content {
+            flex-grow: 1;
+
+            display: flex;
+            align-items: center;
+
+
+            word-break: break-word;
+        }
+
+        &__close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+
+            cursor: pointer;
+
+            color: var(--on-secondary-color);
+
+            transition: background-color 200ms ease;
+
+            &:hover {
+                background-color: var(--on-secondary-container-color);
+            }
+
+            &:active {
+                background-color: var(--on-secondary-container-color);
+
+                transform: scale(0.95);
+            }
+
+            &::before {
+                content: '✕';
+                font-weight: bold;
+                font-size: apply-multiplier(1.25rem);
+            }
+
+            &__container {
+                min-width: calc(#{apply-multiplier(1.25rem)} + 10px);
+
+                align-self: flex-start;
+            }
+        }
+    }
+
+    &__main {
+        padding: apply-multiplier($baseModalPadding);
+
+        overflow: auto;
+    }
+
+    &__footer {
+        margin-top: auto;
+        padding: apply-multiplier($baseModalPadding);
+
+        background-color: var(--surface-container-color);
+        border-top: 1px solid var(--outline-color);
     }
 }

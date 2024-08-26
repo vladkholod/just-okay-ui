@@ -8,8 +8,8 @@
     width: calc(50px * var(--multiplier));
     height: calc(20px * var(--multiplier));
 
-    background-color: var(--secondary-color);
-    border: var(--loader-spacing) solid var(--primary-color);
+    background-color: var(--primary-container-color);
+    border: var(--loader-spacing) solid var(--outline-color);
 
     padding: var(--loader-spacing);
 
@@ -46,7 +46,7 @@
 
         width: calc(#{$basePointerWidth} * var(--multiplier));
         height: 100%;
-        background-color: var(--primary-color);
+        background-color: var(--tertiary-color);
 
         animation: moveLoader var(--loader-duration) ease-in-out infinite;
 

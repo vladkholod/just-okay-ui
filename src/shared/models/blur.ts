@@ -1,3 +1,3 @@
-export type Blur = true | false;
+export type Blur = boolean;
 
-export const DEFAULT_BLUR: Blur = false;
+export const DEFAULT_BLUR: Blur = true;
