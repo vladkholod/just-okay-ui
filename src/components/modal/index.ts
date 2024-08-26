@@ -1,2 +1,2 @@
-export * from './modal';
-export * from './modal-config';
+export { Modal } from './modal';
+export { ModalConfig } from './modal-config';

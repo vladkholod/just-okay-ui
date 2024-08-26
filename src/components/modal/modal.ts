@@ -4,22 +4,25 @@ import { DEFAULT_SIZE } from '../../shared/models/size';
 import { eb } from '@bqx/html-element-builder';
 import { classNames } from './class-names';
 import { ModalConfig } from './modal-config';
+import { Component } from '../component';
 
-export class Modal implements Disposable<void> {
+export class Modal implements Component, Disposable<void> {
+    public readonly element: HTMLElement;
+
     private readonly config: Required<ModalConfig>;
-    private readonly container: HTMLElement;
-    private readonly cross: HTMLElement;
+    private readonly closeElement: HTMLElement;
 
     private appended = false;
     private shown = false;
     private disposed = false;
 
-    constructor(config?: ModalConfig) {
+    constructor(config: ModalConfig) {
         this.config = Modal.initConfig(config);
 
-        const { container, cross } = Modal.createContainer(this.config);
-        this.container = container;
-        this.cross = cross;
+        const { overlay, close } = Modal.createDOM(this.config);
+        this.element = overlay;
+        this.closeElement = close;
+        this.closeElement.addEventListener('click', () => this.close());
     }
 
     public show(): void {
@@ -27,19 +30,19 @@ export class Modal implements Disposable<void> {
             return;
         }
 
-        if (this.shown) { 
+        if (this.shown) {
             return;
         }
 
         this.shown = true;
 
         if (!this.appended) {
-            document.body.appendChild(this.container);
+            document.body.appendChild(this.element);
 
             this.appended = true;
         }
 
-        this.container.classList.remove(classNames.modal.modifiers.hidden);
+        this.element.classList.remove(classNames.modal.modifiers.hidden);
     }
 
     public close(): void {
@@ -47,13 +50,13 @@ export class Modal implements Disposable<void> {
             return;
         }
 
-        if (!this.shown) { 
+        if (!this.shown) {
             return;
         }
 
         this.shown = false;
 
-        this.container.classList.add(classNames.modal.modifiers.hidden);
+        this.element.classList.add(classNames.modal.modifiers.hidden);
 
         if (this.config.destroyOnClose) {
             this.dispose();
@@ -65,19 +68,46 @@ export class Modal implements Disposable<void> {
             return;
         }
 
-        this.container.remove();
-        
-        // TODO: check if it is available without direct remove call
-        this.cross.remove();
+        this.element.remove();
+        this.closeElement.remove();
 
         this.disposed = true;
     }
 
-    private static createContainer(config: Required<ModalConfig>): { container: HTMLElement, cross: HTMLElement } {
-        const { title, main, footer } = config.content;
+    private static createDOM(config: Required<ModalConfig>): { overlay: HTMLElement, close: HTMLElement } {
+        const close = eb('div')
+            .withClass(classNames.modal.title.close.element)
+            .build();
 
-        const cross = eb('div')
-            .withClass(classNames.modal.cross.element)
+        const closeContainer = eb('div')
+            .withClass(classNames.modal.title.close.container.element)
+            .withChild(close)
+            .build();
+
+        const titleContent = eb('div')
+            .withClass(classNames.modal.title.content.element)
+            .match(
+                () => config.content.title !== undefined,
+                builder => builder.match(
+                    () => typeof config.content.title === 'string',
+                    (builder) => builder.withText(config.content.title as string),
+                    (builder) => builder.withChild(config.content.title as HTMLElement),
+                ),
+            )
+            .build();
+
+        const title = eb('div')
+            .withClass(classNames.modal.title.element)
+            .withChild(titleContent, closeContainer)
+            .build();
+
+        const main = eb('div')
+            .withClass(classNames.modal.main.element)
+            .match(
+                () => typeof config.content.main === 'string',
+                (builder) => builder.withText(config.content.main as string),
+                (builder) => builder.withChild(config.content.main as HTMLElement),
+            )
             .build();
 
         const container = eb('div')
@@ -85,26 +115,45 @@ export class Modal implements Disposable<void> {
                 classNames.modal.element,
                 classNames.modal.modifiers.size[config.size],
             )
-            .when(() => config.blur)
-            .withClass(classNames.modal.modifiers.blur)
-            .withChild(cross)
-            .when(() => title !== undefined)
-            .withChild(title!)
-            .when(() => main !== undefined)
-            .withChild(main!)
-            .when(() => footer !== undefined)
-            .withChild(footer!)
+            .match(
+                () => config.fullScreen,
+                (builder) => builder.withClass(classNames.modal.modifiers.fullScreen),
+            )
+            .withChild(title, main)
+            .match(
+                () => config.content.footer !== undefined,
+                builder => builder.withChild(
+                    eb('div')
+                        .withClass(classNames.modal.footer.element)
+                        .match(
+                            () => typeof config.content.footer === 'string',
+                            (builder) => builder.withText(config.content.footer as string),
+                            (builder) => builder.withChild(config.content.footer as HTMLElement),
+                        )
+                        .build(),
+                ),
+            )
             .build();
 
-        return { container, cross };
+        const overlay = eb('div')
+            .withClass(classNames.modal.overlay.element)
+            .match(
+                () => config.blur,
+                builder => builder.withClass(classNames.modal.overlay.modifiers.blur),
+            )
+            .withChild(container)
+            .build();
+
+        return { overlay: overlay, close };
     }
 
-    private static initConfig(config: ModalConfig | undefined): Required<ModalConfig> {
+    private static initConfig(config: ModalConfig): Required<ModalConfig> {
         return {
-            size: config?.size ?? DEFAULT_SIZE,
-            blur: config?.blur ?? DEFAULT_BLUR,
-            content: config?.content ?? {},
-            destroyOnClose: config?.destroyOnClose ?? true,
+            size: config.size ?? DEFAULT_SIZE,
+            fullScreen: config.fullScreen ?? false,
+            blur: config.blur ?? DEFAULT_BLUR,
+            content: config.content,
+            destroyOnClose: config.destroyOnClose ?? true,
         };
     }
 }
