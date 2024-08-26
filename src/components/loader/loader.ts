@@ -8,14 +8,15 @@ import { eb } from '@bqx/html-element-builder';
 import { Component } from '../component';
 
 export class Loader implements Component, Disposable<void> {
-    private readonly config: Required<LoaderConfig>;
     public readonly element: HTMLElement;
+
+    private readonly config: Required<LoaderConfig>;
 
     private appended = false;
     private loading = false;
     private disposed = false;
 
-    public constructor(config: LoaderConfig) {
+    public constructor(config?: LoaderConfig) {
         this.config = Loader.initConfig(config);
 
         this.element = Loader.createDOM(this.config);
@@ -65,8 +66,10 @@ export class Loader implements Component, Disposable<void> {
                 classNames.loader.element,
                 classNames.loader.modifiers.size[config.size],
             )
-            .when(() => config.pointerSpeed !== DEFAULT_SPEED)
-            .withClass(classNames.loader.modifiers.pointerSpeed[config.pointerSpeed])
+            .match(
+                () => config.pointerSpeed !== DEFAULT_SPEED,
+                builder => builder.withClass(classNames.loader.modifiers.pointerSpeed[config.pointerSpeed]),
+            )
             .withChild(pointerElement)
             .build();
 
@@ -75,22 +78,22 @@ export class Loader implements Component, Disposable<void> {
                 classNames.loader.container.element,
                 classNames.loader.container.modifiers.off,
             )
-            .when(() => config.blur)
-            .withClass(classNames.loader.container.modifiers.blur)
+            .match(
+                () => config.blur,
+                builder => builder.withClass(classNames.loader.container.modifiers.blur),
+            )
             .withChild(loaderElement)
             .build();
 
         return containerElement;
     }
 
-    private static initConfig(config: LoaderConfig): Required<LoaderConfig> {
-        const target = config.target ?? document.body;
-
+    private static initConfig(config?: LoaderConfig): Required<LoaderConfig> {
         return {
-            size: config.size ?? DEFAULT_SIZE,
-            pointerSpeed: config.pointerSpeed ?? DEFAULT_SPEED,
-            blur: config.blur ?? DEFAULT_BLUR,
-            target,
+            size: config?.size ?? DEFAULT_SIZE,
+            pointerSpeed: config?.pointerSpeed ?? DEFAULT_SPEED,
+            blur: config?.blur ?? DEFAULT_BLUR,
+            target: config?.target ?? document.body,
         };
     }
 }
