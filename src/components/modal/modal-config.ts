@@ -11,5 +11,6 @@ export interface ModalConfig {
     size?: Size;
     fullScreen?: boolean;
     blur?: boolean;
+    closeOnOutsideClick?: boolean;
     destroyOnClose?: boolean;
 }

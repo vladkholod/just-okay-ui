@@ -7,9 +7,14 @@ import { ModalConfig } from './modal-config';
 import { Component } from '../component';
 
 export class Modal implements Component, Disposable<void> {
-    public readonly element: HTMLElement;
+    public get element(): HTMLElement {
+        return this.overlayElement;
+    }
 
     private readonly config: Required<ModalConfig>;
+
+    private readonly overlayElement: HTMLElement;
+    private readonly modalElement: HTMLElement;
     private readonly closeElement: HTMLElement;
 
     private appended = false;
@@ -19,10 +24,12 @@ export class Modal implements Component, Disposable<void> {
     constructor(config: ModalConfig) {
         this.config = Modal.initConfig(config);
 
-        const { overlay, close } = Modal.createDOM(this.config);
-        this.element = overlay;
+        const { overlay, modal, close } = Modal.createDOM(this.config);
+        this.overlayElement = overlay;
+        this.modalElement = modal;
         this.closeElement = close;
-        this.closeElement.addEventListener('click', () => this.close());
+
+        this.initListeners();
     }
 
     public show(): void {
@@ -74,7 +81,19 @@ export class Modal implements Component, Disposable<void> {
         this.disposed = true;
     }
 
-    private static createDOM(config: Required<ModalConfig>): { overlay: HTMLElement, close: HTMLElement } {
+    private initListeners(): void {
+        this.closeElement.addEventListener('click', () => this.close());
+
+        if (this.config.closeOnOutsideClick) {
+            this.overlayElement.addEventListener('click', (event) => {
+                if (event.target === this.overlayElement) {
+                    this.close();
+                }
+            });
+        }
+    }
+
+    private static createDOM(config: Required<ModalConfig>): { overlay: HTMLElement, modal: HTMLElement, close: HTMLElement } {
         const close = eb('div')
             .withClass(classNames.modal.title.close.element)
             .build();
@@ -110,7 +129,7 @@ export class Modal implements Component, Disposable<void> {
             )
             .build();
 
-        const container = eb('div')
+        const modal = eb('div')
             .withClass(
                 classNames.modal.element,
                 classNames.modal.modifiers.size[config.size],
@@ -141,10 +160,10 @@ export class Modal implements Component, Disposable<void> {
                 () => config.blur,
                 builder => builder.withClass(classNames.modal.overlay.modifiers.blur),
             )
-            .withChild(container)
+            .withChild(modal)
             .build();
 
-        return { overlay: overlay, close };
+        return { overlay, modal, close };
     }
 
     private static initConfig(config: ModalConfig): Required<ModalConfig> {
@@ -153,6 +172,7 @@ export class Modal implements Component, Disposable<void> {
             fullScreen: config.fullScreen ?? false,
             blur: config.blur ?? DEFAULT_BLUR,
             content: config.content,
+            closeOnOutsideClick: config.closeOnOutsideClick ?? false,
             destroyOnClose: config.destroyOnClose ?? true,
         };
     }

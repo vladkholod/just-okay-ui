@@ -1,7 +1,8 @@
 import '../src/styles/main.scss';
 
-import { Modal } from '../src/components/modal';
+import { Modal, ModalConfig } from '../src/components/modal';
 import { eb } from '@bqx/html-element-builder';
+import { Size } from '../src/shared/models/size';
 
 (() => {
     eb(document.body)
@@ -19,14 +20,18 @@ import { eb } from '@bqx/html-element-builder';
 
     app.innerText = 'Lorem ipsum dolor sit amet.';
 
-    const modal = new Modal({
-        blur: true,
-        content: {
-            main: eb('div')
-                .withText('test')
-                .build(),
-        },
-    });
-
-    modal.show();
+    new Array<Size>('xs', 'sm', 'md', 'lg')
+        .map<ModalConfig>((size) => ({
+            size,
+            closeOnOutsideClick: true,
+            blur: false,
+            content: {
+                main: eb('div')
+                    .withText(`test ${size}`)
+                    .build(),
+            },
+        }))
+        .map<Modal>(config => new Modal(config))
+        .reverse()
+        .forEach(modal => modal.show());
 })();
