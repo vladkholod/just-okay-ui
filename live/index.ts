@@ -1,8 +1,9 @@
 import '../src/styles/main.scss';
 
-import { Modal, ModalConfig } from '../src/components/modal';
+import { Button, ButtonConfig } from '../src/components/button';
 import { eb } from '@bqx/html-element-builder';
 import { Size } from '../src/shared/models/size';
+import { Variant } from '../src/shared/models/variant';
 
 (() => {
     eb(document.body)
@@ -20,18 +21,32 @@ import { Size } from '../src/shared/models/size';
 
     app.innerText = 'Lorem ipsum dolor sit amet.';
 
-    new Array<Size>('xs', 'sm', 'md', 'lg')
-        .map<ModalConfig>((size) => ({
+    const rawButtons = new Array<{ size: Size, variant: Variant }>(
+        { size: 'xs', variant: 'primary' },
+        { size: 'sm', variant: 'primary' },
+        { size: 'md', variant: 'primary' },
+        { size: 'lg', variant: 'primary' },
+
+        { size: 'xs', variant: 'secondary' },
+        { size: 'sm', variant: 'secondary' },
+        { size: 'md', variant: 'secondary' },
+        { size: 'lg', variant: 'secondary' },
+
+        { size: 'xs', variant: 'tertiary' },
+        { size: 'sm', variant: 'tertiary' },
+        { size: 'md', variant: 'tertiary' },
+        { size: 'lg', variant: 'tertiary' },
+    )
+        .map<ButtonConfig>(({ size, variant }) => ({
             size,
-            closeOnOutsideClick: true,
-            blur: false,
-            content: {
-                main: eb('div')
-                    .withText(`test ${size}`)
-                    .build(),
-            },
+            variant,
+            isIcon: false,
+            content: '🚀',
+            onClick: () => console.log(this),
         }))
-        .map<Modal>(config => new Modal(config))
-        .reverse()
-        .forEach(modal => modal.show());
+        .map(config => new Button(config))
+        .map(button => button.element);
+
+    app.append(...rawButtons);
+
 })();

@@ -1,0 +1,82 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+.#{$lib-prefix}-button {
+    // width: apply-multiplier(150px);
+    font-size: apply-multiplier(1.5rem);
+
+    border: 3px solid var(--outline-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+
+    &--xs {
+        @include size-xs();
+    }
+
+    &--sm {
+        @include size-sm();
+    }
+
+    &--md {
+        @include size-md();
+    }
+
+    &--lg {
+        @include size-lg();
+    }
+
+    &--primary {
+        background-color: var(--primary-color);
+        color: var(--on-primary-color);
+
+        &:hover {
+            background-color: var(--primary-fixed-dim-color);
+            color: var(--on-primary-fixed-color);
+        }
+
+        &:active {
+            background-color: var(--primary-fixed-color);
+            color: var(--on-primary-fixed-color);
+        }
+    }
+
+    &--secondary {
+        background-color: var(--secondary-color);
+        color: var(--on-secondary-color);
+
+        &:hover {
+            background-color: var(--secondary-fixed-dim-color);
+            color: var(--on-secondary-fixed-color);
+        }
+
+        &:active {
+            background-color: var(--secondary-fixed-color);
+            color: var(--on-secondary-fixed-color);
+        }
+    }
+
+    &--tertiary {
+        background-color: var(--tertiary-color);
+        color: var(--on-tertiary-color);
+
+        &:hover {
+            background-color: var(--tertiary-fixed-dim-color);
+            color: var(--on-tertiary-fixed-color);
+        }
+
+        &:active {
+            background-color: var(--tertiary-fixed-color);
+            color: var(--on-tertiary-fixed-color);
+        }
+    }
+
+    &--icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1;
+
+        padding: 0;
+    }
+}

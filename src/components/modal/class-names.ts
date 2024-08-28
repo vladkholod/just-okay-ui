@@ -1,5 +1,5 @@
 import { bem } from '@bqx/bem';
-import { getLibBlockName } from '../../utils/bem';
+import { getLibBlockName, getSizeBlockModifiers } from '../../utils/bem';
 
 const modalBlock = bem.block(getLibBlockName('modal'));
 const overlayElement = bem.element(modalBlock, 'overlay');
@@ -10,12 +10,7 @@ export const classNames = {
     modal: {
         element: modalBlock,
         modifiers: {
-            size: {
-                xs: bem.blockModifier(modalBlock, 'xs'),
-                sm: bem.blockModifier(modalBlock, 'sm'),
-                md: bem.blockModifier(modalBlock, 'md'),
-                lg: bem.blockModifier(modalBlock, 'lg'),
-            },
+            size: getSizeBlockModifiers(modalBlock),
             fullScreen: bem.blockModifier(modalBlock, 'full-screen'),
             hidden: bem.blockModifier(modalBlock, 'hidden'),
         },

@@ -21,3 +21,7 @@
 @mixin off {
     display: none;
 }
+
+@function apply-multiplier($value) {
+    @return calc(#{$value} * var(--multiplier));
+}

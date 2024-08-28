@@ -1,9 +1,10 @@
+import { Content } from '../../shared/models/content';
 import { Size } from '../../shared/models/size';
 
 export interface ModalContent {
-    main: HTMLElement | string;
-    title?: HTMLElement | string;
-    footer?: HTMLElement | string;
+    main: Content;
+    title?: Content;
+    footer?: Content;
 }
 
 export interface ModalConfig {

@@ -4,10 +4,6 @@
 .#{$lib-prefix}-modal {
     $baseModalPadding: 8px;
 
-    @function apply-multiplier($value) {
-        @return calc(#{$value} * var(--multiplier));
-    }
-
     z-index: 10000;
 
     position: fixed;

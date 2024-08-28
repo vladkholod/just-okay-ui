@@ -1,6 +1,7 @@
 import { Speed } from '../../shared/models/speed';
 import { Size } from '../../shared/models/size';
 import { Position } from './models';
+import { Content } from '../../shared/models/content';
 
 export interface TooltipConfig {
     size?: Size;
@@ -10,5 +11,5 @@ export interface TooltipConfig {
      */
     transition?: Speed | number;
     target: HTMLElement;
-    content: HTMLElement | string;
+    content: Content;
 }

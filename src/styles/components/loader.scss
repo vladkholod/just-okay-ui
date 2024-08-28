@@ -5,8 +5,8 @@
     --loader-spacing: 2px;
     --loader-duration: 1.5s;
 
-    width: calc(50px * var(--multiplier));
-    height: calc(20px * var(--multiplier));
+    width: apply-multiplier(50px);
+    height: apply-multiplier(20px);
 
     background-color: var(--primary-container-color);
     border: var(--loader-spacing) solid var(--outline-color);
@@ -58,6 +58,8 @@
     }
 
     &__container {
+        z-index: 20000;
+
         position: absolute;
 
         width: 100%;
