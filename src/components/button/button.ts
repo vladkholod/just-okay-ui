@@ -50,7 +50,6 @@ export class Button implements Component, Disposable<void> {
                         ),
                 (builder) => builder.match(...contentMatcher(config.content)),
             )
-
             .build();
 
         return button;

@@ -2,8 +2,7 @@
 @import '../variables.scss';
 
 .#{$lib-prefix}-button {
-    // width: apply-multiplier(150px);
-    font-size: apply-multiplier(1.5rem);
+    font-size: apply-multiplier(#{$baseTextSize});
 
     border: 3px solid var(--outline-color);
     cursor: pointer;

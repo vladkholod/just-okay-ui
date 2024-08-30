@@ -1,6 +1,8 @@
 import '../src/styles/main.scss';
 
-import { Button, ButtonConfig } from '../src/components/button';
+import { Checkbox, CheckboxConfig } from '../src/components/checkbox';
+import { Loader } from '../src/components/loader';
+import { Button } from '../src/components/button';
 import { eb } from '@bqx/html-element-builder';
 import { Size } from '../src/shared/models/size';
 import { Variant } from '../src/shared/models/variant';
@@ -21,32 +23,30 @@ import { Variant } from '../src/shared/models/variant';
 
     app.innerText = 'Lorem ipsum dolor sit amet.';
 
-    const rawButtons = new Array<{ size: Size, variant: Variant }>(
+    const rawCheckboxes = new Array<{ size: Size, variant: Variant }>(
         { size: 'xs', variant: 'primary' },
-        { size: 'sm', variant: 'primary' },
-        { size: 'md', variant: 'primary' },
         { size: 'lg', variant: 'primary' },
 
-        { size: 'xs', variant: 'secondary' },
         { size: 'sm', variant: 'secondary' },
         { size: 'md', variant: 'secondary' },
-        { size: 'lg', variant: 'secondary' },
 
-        { size: 'xs', variant: 'tertiary' },
         { size: 'sm', variant: 'tertiary' },
-        { size: 'md', variant: 'tertiary' },
         { size: 'lg', variant: 'tertiary' },
     )
-        .map<ButtonConfig>(({ size, variant }) => ({
+        .map<CheckboxConfig>(({ size, variant }) => ({
             size,
             variant,
-            isIcon: false,
-            content: '🚀',
-            onClick: () => console.log(this),
+            name: `${variant}-${size}`,
+            value: `${variant}-${size}`,
+            displayText: `${variant}-${size}`.toUpperCase(),
+            checked: true,
+            onClick: ({ value, checked }) => console.log(value, checked),
         }))
-        .map(config => new Button(config))
-        .map(button => button.element);
+        .map(config => new Checkbox(config))
+        .map(checkbox => checkbox.element);
 
-    app.append(...rawButtons);
+    app.append(...rawCheckboxes);
 
+    new Loader({ blur: false }).on();
+    app.append(new Button({content: 'test'}).element);
 })();

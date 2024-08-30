@@ -1,0 +1,101 @@
+@import '../mixins.scss';
+@import '../variables.scss';
+
+.#{$lib-prefix}-checkbox {
+    $basePadding: 8px;
+
+    --border-width: 2px;
+    --check-color: var(--primary-color);
+
+    font-size: apply-multiplier(#{$baseTextSize});
+
+    display: flex;
+    align-items: stretch;
+
+    padding: apply-multiplier(#{$basePadding});
+    padding-left: 0;
+
+    &--xs {
+        @include size-xs();
+        --border-width: 1px;
+    }
+
+    &--sm {
+        @include size-sm();
+        --border-width: 2px;
+    }
+
+    &--md {
+        @include size-md();
+        --border-width: 2px;
+    }
+
+    &--lg {
+        @include size-lg();
+        --border-width: 3px;
+    }
+
+    >label {
+        cursor: pointer;
+
+        position: relative;
+
+        display: inline-flex;
+        line-height: apply-multiplier(#{$baseTextSize});
+
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: calc(#{apply-multiplier(#{$baseTextSize})} - var(--border-width) * 2);
+            border: var(--border-width) solid var(--outline-color);
+
+            margin-right: apply-multiplier(#{$basePadding});
+        }
+    }
+
+    >input {
+        display: none;
+
+        &:checked+label::after {
+            content: '';
+
+            position: absolute;
+            left: var(--border-width);
+            top: var(--border-width);
+
+            display: inline-block;
+            width: calc(#{apply-multiplier(#{$baseTextSize})} - var(--border-width) * 2);
+            aspect-ratio: 1;
+
+            background-color: var(--check-color);
+            clip-path: polygon(10% 50%, 20% 40%, 40% 60%, 80% 20%, 90% 30%, 40% 80%);
+
+            transition: background-color 0.2s ease;
+        }
+    }
+
+    &--primary {
+        --check-color: var(--primary-color);
+
+        label:hover {
+            --check-color: var(--primary-fixed-dim-color);
+        }
+    }
+
+    &--secondary {
+        --check-color: var(--secondary-color);
+
+        label:hover {
+            --check-color: var(--secondary-fixed-dim-color);
+        }
+    }
+
+    &--tertiary {
+        --check-color: var(--tertiary-color);
+
+        label:hover {
+            --check-color: var(--tertiary-fixed-dim-color);
+        }
+    }
+}

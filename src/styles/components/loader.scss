@@ -46,7 +46,7 @@
 
         width: calc(#{$basePointerWidth} * var(--multiplier));
         height: 100%;
-        background-color: var(--tertiary-color);
+        background-color: var(--primary-color);
 
         animation: moveLoader var(--loader-duration) ease-in-out infinite;
 
