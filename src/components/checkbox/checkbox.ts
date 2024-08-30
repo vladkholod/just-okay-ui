@@ -22,7 +22,6 @@ export class Checkbox implements Component, Disposable<void> {
         this.config = Checkbox.initConfig(config);
 
         const { container, input } = Checkbox.createDOM(this.config);
-
         this.containerElement = container;
         this.inputElement = input;
 
