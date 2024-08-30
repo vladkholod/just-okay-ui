@@ -1,7 +1,6 @@
 import '../src/styles/main.scss';
 
 import { Checkbox, CheckboxConfig } from '../src/components/checkbox';
-import { Loader } from '../src/components/loader';
 import { Button } from '../src/components/button';
 import { eb } from '@bqx/html-element-builder';
 import { Size } from '../src/shared/models/size';
@@ -47,6 +46,5 @@ import { Variant } from '../src/shared/models/variant';
 
     app.append(...rawCheckboxes);
 
-    new Loader({ blur: false }).on();
     app.append(new Button({content: 'test'}).element);
 })();

@@ -22,6 +22,10 @@
     display: none;
 }
 
+@mixin bgColorTransition {
+    transition: background-color 0.2s ease;
+}
+
 @function apply-multiplier($value) {
     @return calc(#{$value} * var(--multiplier));
 }
