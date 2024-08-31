@@ -1,8 +1,9 @@
+import { ComponentConfig } from '../../models/component-config';
 import { Content } from '../../models/content';
 import { Size } from '../../models/size';
 import { Variant } from '../../models/variant';
 
-export type BaseButtonConfig = {
+export type BaseButtonConfig = ComponentConfig & {
     size?: Size;
     variant?: Variant;
     onClick?: () => void;

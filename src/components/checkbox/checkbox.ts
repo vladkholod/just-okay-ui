@@ -5,6 +5,7 @@ import { Component } from '../../models/component';
 import { CheckboxConfig } from './checkbox-config';
 import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_VARIANT } from '../../models/variant';
+import { idMatcher } from '../../utils/element-builder';
 
 export class Checkbox implements Component, Disposable<void> {
     public get element(): HTMLElement {
@@ -75,6 +76,7 @@ export class Checkbox implements Component, Disposable<void> {
             .build();
 
         const container = eb('div')
+            .match(...idMatcher(config.id))
             .withClass(
                 classNames.checkbox.element,
                 classNames.checkbox.modifiers.size[config.size],
@@ -88,6 +90,7 @@ export class Checkbox implements Component, Disposable<void> {
 
     private static initConfig(config: CheckboxConfig): Required<CheckboxConfig> {
         return {
+            id: config.id ?? '',
             name: config.name,
             value: config.value,
             displayText: config.displayText ?? config.value,

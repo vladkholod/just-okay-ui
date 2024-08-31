@@ -1,3 +1,4 @@
+import { ComponentConfig } from '../../models/component-config';
 import { Size } from '../../models/size';
 import { Variant } from '../../models/variant';
 
@@ -6,7 +7,7 @@ export type CheckboxClickedPayload = {
     checked: boolean;
 };
 
-export type CheckboxConfig = {
+export type CheckboxConfig = ComponentConfig & {
     name: string;
     value: string;
     displayText?: string;

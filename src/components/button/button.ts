@@ -5,7 +5,7 @@ import { Component } from '../../models/component';
 import { ButtonConfig, IconButtonConfig, NonIconButtonConfig } from './button-config';
 import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_VARIANT } from '../../models/variant';
-import { contentMatcher } from '../../utils/element-builder/content-matcher';
+import { contentMatcher, idMatcher } from '../../utils/element-builder';
 
 export class Button implements Component, Disposable<void> {
     public readonly element: HTMLElement;
@@ -38,6 +38,7 @@ export class Button implements Component, Disposable<void> {
                 classNames.button.modifiers.variant[config.variant],
             )
             .withListener('click', () => config.onClick())
+            .match(...idMatcher(config.id))
             .match(
                 () => config.isIcon,
                 (builder) =>
@@ -57,6 +58,7 @@ export class Button implements Component, Disposable<void> {
 
     private static initConfig(config?: ButtonConfig): Required<ButtonConfig> {
         const buttonConfig: Required<NonIconButtonConfig> = {
+            id: config?.id ?? '',
             size: config?.size ?? DEFAULT_SIZE,
             variant: config?.variant ?? DEFAULT_VARIANT,
             onClick: config?.onClick ?? (() => { /* default */ }),

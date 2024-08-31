@@ -6,6 +6,7 @@ import { TooltipConfig } from './tooltip-config';
 import { DEFAULT_SPEED, Speed } from '../../models/speed';
 import { classNames } from './class-names';
 import { Component } from '../../models/component';
+import { idMatcher } from '../../utils/element-builder';
 
 const transitionSpeedMap: Readonly<Record<Speed, number>> = {
     fast: 250,
@@ -48,6 +49,7 @@ export class Tooltip implements Component, Disposable<void> {
                     ? config.content
                     : config.content.outerHTML;
             })
+            .match(...idMatcher(config.id))
             .build();
 
         const transitionSpeed = typeof config.transition === 'number'
@@ -75,7 +77,9 @@ export class Tooltip implements Component, Disposable<void> {
 
     private static initConfig(config: TooltipConfig): Required<TooltipConfig> {
         return {
-            ...config,
+            id: config.id ?? '',
+            target: config.target,
+            content: config.content,
             position: config.position ?? DEFAULT_POSITION,
             size: config.size ?? DEFAULT_SIZE,
             transition: config.transition ?? DEFAULT_SPEED,
