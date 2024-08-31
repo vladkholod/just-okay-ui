@@ -1,5 +1,5 @@
-import { Content } from '../../shared/models/content';
-import { Size } from '../../shared/models/size';
+import { Content } from '../../models/content';
+import { Size } from '../../models/size';
 
 export interface ModalContent {
     main: Content;

@@ -1,5 +1,5 @@
-import { Size } from '../../shared/models/size';
-import { Variant } from '../../shared/models/variant';
+import { Size } from '../../models/size';
+import { Variant } from '../../models/variant';
 
 export type CheckboxClickedPayload = {
     value: string;

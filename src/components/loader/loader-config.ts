@@ -1,6 +1,6 @@
-import { Blur } from '../../shared/models/blur';
-import { Speed } from '../../shared/models/speed';
-import { Size } from '../../shared/models/size';
+import { Blur } from '../../models/blur';
+import { Speed } from '../../models/speed';
+import { Size } from '../../models/size';
 
 export interface LoaderConfig { 
     size?: Size;

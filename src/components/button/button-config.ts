@@ -1,6 +1,6 @@
-import { Content } from '../../shared/models/content';
-import { Size } from '../../shared/models/size';
-import { Variant } from '../../shared/models/variant';
+import { Content } from '../../models/content';
+import { Size } from '../../models/size';
+import { Variant } from '../../models/variant';
 
 export type BaseButtonConfig = {
     size?: Size;

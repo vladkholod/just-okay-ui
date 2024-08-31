@@ -1,11 +1,11 @@
 import { LoaderConfig } from './loader-config';
 import { classNames } from './class-names';
-import { Disposable } from '../../shared/models/disposable';
-import { DEFAULT_SIZE } from '../../shared/models/size';
-import { DEFAULT_SPEED } from '../../shared/models/speed';
-import { DEFAULT_BLUR } from '../../shared/models/blur';
+import { Disposable } from '../../models/disposable';
+import { DEFAULT_SIZE } from '../../models/size';
+import { DEFAULT_SPEED } from '../../models/speed';
+import { DEFAULT_BLUR } from '../../models/blur';
 import { eb } from '@bqx/html-element-builder';
-import { Component } from '../component';
+import { Component } from '../../models/component';
 
 export class Loader implements Component, Disposable<void> {
     public readonly element: HTMLElement;

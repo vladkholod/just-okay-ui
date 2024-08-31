@@ -1,6 +1,6 @@
 import { bem } from '@bqx/bem';
 import { Block } from '@bqx/bem/dist/models/block';
-import { Variant } from '../../shared/models/variant';
+import { Variant } from '../../models/variant';
 import { BlockModifiers } from './models';
 
 export function getVariantBlockModifiers<BlockName extends string>(block: Block<BlockName>): BlockModifiers<Variant, BlockName> { 

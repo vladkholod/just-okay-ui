@@ -1,7 +1,7 @@
-import { Speed } from '../../shared/models/speed';
-import { Size } from '../../shared/models/size';
+import { Speed } from '../../models/speed';
+import { Size } from '../../models/size';
 import { Position } from './models';
-import { Content } from '../../shared/models/content';
+import { Content } from '../../models/content';
 
 export interface TooltipConfig {
     size?: Size;

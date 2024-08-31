@@ -1,10 +1,10 @@
 import { classNames } from './class-names';
-import { Disposable } from '../../shared/models/disposable';
+import { Disposable } from '../../models/disposable';
 import { eb } from '@bqx/html-element-builder';
-import { Component } from '../component';
+import { Component } from '../../models/component';
 import { CheckboxConfig } from './checkbox-config';
-import { DEFAULT_SIZE } from '../../shared/models/size';
-import { DEFAULT_VARIANT } from '../../shared/models/variant';
+import { DEFAULT_SIZE } from '../../models/size';
+import { DEFAULT_VARIANT } from '../../models/variant';
 
 export class Checkbox implements Component, Disposable<void> {
     public get element(): HTMLElement {

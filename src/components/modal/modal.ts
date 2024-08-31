@@ -1,10 +1,10 @@
-import { DEFAULT_BLUR } from '../../shared/models/blur';
-import { Disposable } from '../../shared/models/disposable';
-import { DEFAULT_SIZE } from '../../shared/models/size';
+import { DEFAULT_BLUR } from '../../models/blur';
+import { Disposable } from '../../models/disposable';
+import { DEFAULT_SIZE } from '../../models/size';
 import { eb } from '@bqx/html-element-builder';
 import { classNames } from './class-names';
 import { ModalConfig } from './modal-config';
-import { Component } from '../component';
+import { Component } from '../../models/component';
 
 export class Modal implements Component, Disposable<void> {
     public get element(): HTMLElement {

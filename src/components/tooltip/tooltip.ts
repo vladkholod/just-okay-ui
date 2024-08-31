@@ -1,11 +1,11 @@
 import { eb } from '@bqx/html-element-builder';
-import { Disposable } from '../../shared/models/disposable';
-import { DEFAULT_SIZE } from '../../shared/models/size';
+import { Disposable } from '../../models/disposable';
+import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_POSITION } from './models';
 import { TooltipConfig } from './tooltip-config';
-import { DEFAULT_SPEED, Speed } from '../../shared/models/speed';
+import { DEFAULT_SPEED, Speed } from '../../models/speed';
 import { classNames } from './class-names';
-import { Component } from '../component';
+import { Component } from '../../models/component';
 
 const transitionSpeedMap: Readonly<Record<Speed, number>> = {
     fast: 250,

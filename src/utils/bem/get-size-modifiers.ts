@@ -1,6 +1,6 @@
 import { bem } from '@bqx/bem';
 import { Block } from '@bqx/bem/dist/models/block';
-import { Size } from '../../shared/models/size';
+import { Size } from '../../models/size';
 import { BlockModifiers } from './models';
 
 export function getSizeBlockModifiers<BlockName extends string>(block: Block<BlockName>): BlockModifiers<Size, BlockName> { 

@@ -1,5 +1,5 @@
 import { ElementBuilder } from '@bqx/html-element-builder';
-import { Content } from '../../shared/models/content';
+import { Content } from '../../models/content';
 
 export function contentMatcher(content: Content): Parameters<ElementBuilder['match']> {
     return [

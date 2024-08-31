@@ -1,10 +1,10 @@
 import { classNames } from './class-names';
-import { Disposable } from '../../shared/models/disposable';
+import { Disposable } from '../../models/disposable';
 import { eb } from '@bqx/html-element-builder';
-import { Component } from '../component';
+import { Component } from '../../models/component';
 import { ButtonConfig, IconButtonConfig, NonIconButtonConfig } from './button-config';
-import { DEFAULT_SIZE } from '../../shared/models/size';
-import { DEFAULT_VARIANT } from '../../shared/models/variant';
+import { DEFAULT_SIZE } from '../../models/size';
+import { DEFAULT_VARIANT } from '../../models/variant';
 import { contentMatcher } from '../../utils/element-builder/content-matcher';
 
 export class Button implements Component, Disposable<void> {

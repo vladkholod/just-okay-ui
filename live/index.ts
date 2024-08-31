@@ -3,8 +3,8 @@ import '../src/styles/main.scss';
 import { Checkbox, CheckboxConfig } from '../src/components/checkbox';
 import { Button } from '../src/components/button';
 import { eb } from '@bqx/html-element-builder';
-import { Size } from '../src/shared/models/size';
-import { Variant } from '../src/shared/models/variant';
+import { Size } from '../src/models/size';
+import { Variant } from '../src/models/variant';
 
 (() => {
     eb(document.body)
