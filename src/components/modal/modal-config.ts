@@ -15,4 +15,5 @@ export type ModalConfig = ComponentConfig & {
     blur?: boolean;
     closeOnOutsideClick?: boolean;
     destroyOnClose?: boolean;
+    onClose?: () => void;
 };

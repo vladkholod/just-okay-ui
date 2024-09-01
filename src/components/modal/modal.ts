@@ -62,6 +62,8 @@ export class Modal implements Component, Disposable<void> {
             return;
         }
 
+        this.config.onClose();
+
         this.shown = false;
 
         this.element.classList.add(classNames.modal.modifiers.hidden);
@@ -170,13 +172,14 @@ export class Modal implements Component, Disposable<void> {
 
     private static initConfig(config: ModalConfig): Required<ModalConfig> {
         return {
-            id: config?.id ?? '',
+            id: config.id ?? '',
             size: config.size ?? DEFAULT_SIZE,
             fullScreen: config.fullScreen ?? false,
             blur: config.blur ?? DEFAULT_BLUR,
             content: config.content,
             closeOnOutsideClick: config.closeOnOutsideClick ?? false,
             destroyOnClose: config.destroyOnClose ?? true,
+            onClose: config.onClose ?? (() => { /* default */ }),
         };
     }
 }
