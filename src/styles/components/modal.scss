@@ -73,6 +73,7 @@
         padding: apply-multiplier($baseModalPadding);
 
         background-color: var(--primary-color);
+        color: var(--on-primary-color);
         border-bottom: 1px solid var(--outline-color);
 
         &__content {
