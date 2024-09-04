@@ -40,7 +40,27 @@ export class Checkbox implements Component, Disposable<void> {
         this.disposed = true;
     }
 
-    private toggle(): void {
+    public toggle(): void { 
+        this.inputElement.click();
+    }
+
+    public check(): void {
+        if (this.config.checked) { 
+            return;
+        }
+
+        this.toggle();
+    }
+
+    public uncheck(): void {
+        if (!this.config.checked) { 
+            return;
+        }
+
+        this.toggle();
+    }
+
+    private toggleCheckedState(): void {
         this.config.checked = !this.config.checked;
 
         this.config.onClick({
@@ -50,7 +70,7 @@ export class Checkbox implements Component, Disposable<void> {
     }
 
     private initListeners(): void {
-        this.inputElement.addEventListener('click', () => this.toggle());
+        this.inputElement.addEventListener('click', () => this.toggleCheckedState());
     }
 
     private static createDOM(config: Required<CheckboxConfig>): { container: HTMLElement, input: HTMLElement } {

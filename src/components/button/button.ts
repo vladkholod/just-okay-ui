@@ -20,6 +20,10 @@ export class Button implements Component, Disposable<void> {
         this.element = Button.createDOM(this.config);
     }
 
+    public click(): void { 
+        this.element.click();
+    }
+
     public dispose(): void {
         if (this.disposed) {
             return;

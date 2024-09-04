@@ -22,7 +22,7 @@ import { Variant } from '../src/models/variant';
 
     app.innerText = 'Lorem ipsum dolor sit amet.';
 
-    const rawCheckboxes = new Array<{ size: Size, variant: Variant }>(
+    const checkboxes = new Array<{ size: Size, variant: Variant }>(
         { size: 'xs', variant: 'primary' },
         { size: 'lg', variant: 'primary' },
 
@@ -41,10 +41,40 @@ import { Variant } from '../src/models/variant';
             checked: true,
             onClick: ({ value, checked }) => console.log(value, checked),
         }))
-        .map(config => new Checkbox(config))
-        .map(checkbox => checkbox.element);
+        .map(config => new Checkbox(config));
 
-    app.append(...rawCheckboxes);
+    app.append(...checkboxes.map(x => x.element));
 
-    app.append(new Button({content: 'test'}).element);
+    const clickTarget = new Button({
+        content: 'click target',
+        onClick: () => console.log('clicked'),
+    });
+
+    const clickTrigger = new Button({
+        content: 'click trigger',
+        onClick: () => clickTarget.click(),
+    });
+
+    app.append(
+        new Button({
+            content: 'check 0',
+            onClick: () => checkboxes[0].check(),
+        }).element,
+
+        new Button({
+            content: 'uncheck 0',
+            onClick: () => checkboxes[0].uncheck(),
+        }).element,
+
+        new Button({
+            content: 'toggle 0',
+            onClick: () => checkboxes[0].toggle(),
+        }).element,
+
+        eb('div')
+            .withChild(
+                clickTarget.element,
+                clickTrigger.element,
+            ).build(),
+    );
 })();
