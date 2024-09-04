@@ -44,20 +44,20 @@ export class Checkbox implements Component, Disposable<void> {
         this.inputElement.click();
     }
 
-    public check(): void {
-        if (this.config.checked) { 
+    public setChecked(checked: boolean): void { 
+        if (this.config.checked === checked) { 
             return;
         }
 
         this.toggle();
     }
 
-    public uncheck(): void {
-        if (!this.config.checked) { 
-            return;
-        }
+    public check(): void {
+        this.setChecked(true);
+    }
 
-        this.toggle();
+    public uncheck(): void {
+        this.setChecked(false);
     }
 
     private toggleCheckedState(): void {
