@@ -49,6 +49,7 @@ export class Tooltip implements Component, Disposable<void> {
                     ? config.content
                     : config.content.outerHTML;
             })
+            .withListener('click', (event) => event.stopPropagation())
             .match(...idMatcher(config.id))
             .build();
 
