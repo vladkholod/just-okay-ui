@@ -5,7 +5,8 @@ import { eb } from '@bqx/html-element-builder';
 import { classNames } from './class-names';
 import { ModalConfig } from './modal-config';
 import { Component } from '../../models/component';
-import { idMatcher } from '../../utils/element-builder';
+import { classNamesMatcher, idMatcher } from '../../utils/element-builder';
+import { getInitComponentConfig } from '../../utils/get-init-component-config';
 
 export class Modal implements Component, Disposable<void> {
     public get element(): HTMLElement {
@@ -138,6 +139,7 @@ export class Modal implements Component, Disposable<void> {
                 classNames.modal.modifiers.size[config.size],
             )
             .match(...idMatcher(config.id))
+            .match(...classNamesMatcher(config.classNames))
             .match(
                 () => config.fullScreen,
                 (builder) => builder.withClass(classNames.modal.modifiers.fullScreen),
@@ -172,7 +174,6 @@ export class Modal implements Component, Disposable<void> {
 
     private static initConfig(config: ModalConfig): Required<ModalConfig> {
         return {
-            id: config.id ?? '',
             size: config.size ?? DEFAULT_SIZE,
             fullScreen: config.fullScreen ?? false,
             blur: config.blur ?? DEFAULT_BLUR,
@@ -180,6 +181,7 @@ export class Modal implements Component, Disposable<void> {
             closeOnOutsideClick: config.closeOnOutsideClick ?? false,
             destroyOnClose: config.destroyOnClose ?? true,
             onClose: config.onClose ?? (() => { /* default */ }),
+            ...getInitComponentConfig(config),
         };
     }
 }

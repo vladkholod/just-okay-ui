@@ -5,7 +5,8 @@ import { Component } from '../../models/component';
 import { ButtonConfig, IconButtonConfig, NonIconButtonConfig } from './button-config';
 import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_VARIANT } from '../../models/variant';
-import { contentMatcher, idMatcher } from '../../utils/element-builder';
+import { classNamesMatcher, contentMatcher, idMatcher } from '../../utils/element-builder';
+import { getInitComponentConfig } from '../../utils/get-init-component-config';
 
 export class Button implements Component, Disposable<void> {
     public readonly element: HTMLElement;
@@ -20,7 +21,7 @@ export class Button implements Component, Disposable<void> {
         this.element = Button.createDOM(this.config);
     }
 
-    public click(): void { 
+    public click(): void {
         this.element.click();
     }
 
@@ -41,8 +42,11 @@ export class Button implements Component, Disposable<void> {
                 classNames.button.modifiers.size[config.size],
                 classNames.button.modifiers.variant[config.variant],
             )
-            .withListener('click', () => config.onClick())
+            .withListener('click', () => {
+                config.onClick();
+            })
             .match(...idMatcher(config.id))
+            .match(...classNamesMatcher(config.classNames))
             .match(
                 () => config.isIcon,
                 (builder) =>
@@ -62,12 +66,12 @@ export class Button implements Component, Disposable<void> {
 
     private static initConfig(config?: ButtonConfig): Required<ButtonConfig> {
         const buttonConfig: Required<NonIconButtonConfig> = {
-            id: config?.id ?? '',
             size: config?.size ?? DEFAULT_SIZE,
             variant: config?.variant ?? DEFAULT_VARIANT,
             onClick: config?.onClick ?? (() => { /* default */ }),
             isIcon: false,
             content: config?.content ?? '',
+            ...getInitComponentConfig(config),
         };
 
         if (config?.isIcon === true) {

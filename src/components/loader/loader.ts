@@ -6,7 +6,8 @@ import { DEFAULT_SPEED } from '../../models/speed';
 import { DEFAULT_BLUR } from '../../models/blur';
 import { eb } from '@bqx/html-element-builder';
 import { Component } from '../../models/component';
-import { idMatcher } from '../../utils/element-builder';
+import { classNamesMatcher, idMatcher } from '../../utils/element-builder';
+import { getInitComponentConfig } from '../../utils/get-init-component-config';
 
 export class Loader implements Component, Disposable<void> {
     public readonly element: HTMLElement;
@@ -80,6 +81,7 @@ export class Loader implements Component, Disposable<void> {
                 classNames.loader.container.modifiers.off,
             )
             .match(...idMatcher(config.id))
+            .match(...classNamesMatcher(config.classNames))
             .match(
                 () => config.blur,
                 builder => builder.withClass(classNames.loader.container.modifiers.blur),
@@ -92,11 +94,11 @@ export class Loader implements Component, Disposable<void> {
 
     private static initConfig(config?: LoaderConfig): Required<LoaderConfig> {
         return {
-            id: config?.id ?? '',
             size: config?.size ?? DEFAULT_SIZE,
             pointerSpeed: config?.pointerSpeed ?? DEFAULT_SPEED,
             blur: config?.blur ?? DEFAULT_BLUR,
             target: config?.target ?? document.body,
+            ...getInitComponentConfig(config),
         };
     }
 }
