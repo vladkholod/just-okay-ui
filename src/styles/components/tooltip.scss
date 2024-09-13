@@ -11,8 +11,10 @@
     width: calc(200px * var(--multiplier));
     min-height: calc(30px * var(--multiplier));
 
-    background-color: var(--secondary-color);
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--outline-color);
+
+    background-color: var(--surface-variant-color);
+    color: var(--on-surface-variant-color);
 
     padding: 8px 16px;
     word-wrap: break-word;
