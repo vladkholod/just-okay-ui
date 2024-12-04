@@ -41,11 +41,19 @@ export class Checkbox implements Component, Disposable<void> {
         this.disposed = true;
     }
 
-    public toggle(): void { 
+    public toggle(): void {
+        if (this.disposed) {
+            return;
+        }
+
         this.inputElement.click();
     }
 
-    public setChecked(checked: boolean): void { 
+    public setChecked(checked: boolean): void {
+        if (this.disposed) {
+            return;
+        }
+
         if (this.config.checked === checked) { 
             return;
         }
@@ -54,10 +62,18 @@ export class Checkbox implements Component, Disposable<void> {
     }
 
     public check(): void {
+        if (this.disposed) {
+            return;
+        }
+
         this.setChecked(true);
     }
 
     public uncheck(): void {
+        if (this.disposed) {
+            return;
+        }
+
         this.setChecked(false);
     }
 
