@@ -1,5 +1,5 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
 
 .#{$lib-prefix}-loader {
     --loader-spacing: 2px;

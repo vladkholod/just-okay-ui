@@ -1,7 +1,11 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
 
 .#{$lib-prefix}-modal {
+    --modal-title-background: var(--primary-color);
+    --modal-title-text-color: var(--on-primary-color);
+    --modal-close-icon-color: var(--on-primary-fixed-color);
+
     $baseModalPadding: 8px;
 
     z-index: 10000;
@@ -17,7 +21,7 @@
     background-color: var(--surface-color);
     color: var(--on-surface-color);
 
-    border: 3px solid var(--outline-color);
+    border: var(--fixed-border-size) solid var(--outline-color);
 
     display: flex;
     flex-direction: column;
@@ -72,8 +76,8 @@
 
         padding: apply-multiplier($baseModalPadding);
 
-        background-color: var(--primary-color);
-        color: var(--on-primary-color);
+        background-color: var(--modal-title-background);
+        color: var(--modal-title-text-color);
         border-bottom: 1px solid var(--outline-color);
 
         &__content {
@@ -94,18 +98,20 @@
 
             cursor: pointer;
 
-            color: var(--on-secondary-color);
+            color: var(--modal-close-icon-color);
 
             transition: background-color 200ms ease;
 
             &:hover {
-                background-color: var(--on-secondary-container-color);
+                background-color: var(--modal-close-icon-color);
+                color: var(--modal-title-background);
             }
 
             &:active {
-                background-color: var(--on-secondary-container-color);
-
-                transform: scale(0.95);
+                background-color: var(--modal-close-icon-color);
+                color: var(--modal-title-background);
+                filter: brightness(90%);
+                transition: none;
             }
 
             &::before {

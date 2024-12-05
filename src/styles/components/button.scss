@@ -1,13 +1,16 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
 
 .#{$lib-prefix}-button {
-    font-size: apply-multiplier(#{$baseTextSize});
+    min-height: apply-multiplier(var(--text-size));
+    font-size: apply-multiplier(var(--text-size));
 
-    border: 3px solid var(--outline-color);
+    border: var(--dynamic-border-size) solid var(--outline-color);
     cursor: pointer;
 
     @include bgColorTransition;
+
+    min-height: apply-multiplier(40px);
 
     &--xs {
         @include size-xs();

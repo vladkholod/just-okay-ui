@@ -1,13 +1,12 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
 
 .#{$lib-prefix}-checkbox {
     $basePadding: 8px;
 
-    --border-width: 2px;
     --check-color: var(--primary-color);
 
-    font-size: apply-multiplier(#{$baseTextSize});
+    font-size: apply-multiplier(var(--text-size));
 
     display: flex;
     align-items: stretch;
@@ -17,22 +16,18 @@
 
     &--xs {
         @include size-xs();
-        --border-width: 1px;
     }
 
     &--sm {
         @include size-sm();
-        --border-width: 2px;
     }
 
     &--md {
         @include size-md();
-        --border-width: 2px;
     }
 
     &--lg {
         @include size-lg();
-        --border-width: 3px;
     }
 
     >label {
@@ -41,14 +36,14 @@
         position: relative;
 
         display: inline-flex;
-        line-height: apply-multiplier(#{$baseTextSize});
+        line-height: apply-multiplier(var(--text-size));
 
 
         &::before {
             content: '';
             display: inline-block;
-            width: calc(#{apply-multiplier(#{$baseTextSize})} - var(--border-width) * 2);
-            border: var(--border-width) solid var(--outline-color);
+            width: calc(#{apply-multiplier(var(--text-size))} - var(--dynamic-border-size) * 2);
+            border: var(--dynamic-border-size) solid var(--outline-color);
 
             margin-right: apply-multiplier(#{$basePadding});
         }
@@ -61,11 +56,11 @@
             content: '';
 
             position: absolute;
-            left: var(--border-width);
-            top: var(--border-width);
+            left: var(--dynamic-border-size);
+            top: var(--dynamic-border-size);
 
             display: inline-block;
-            width: calc(#{apply-multiplier(#{$baseTextSize})} - var(--border-width) * 2);
+            width: calc(#{apply-multiplier(var(--text-size))} - var(--dynamic-border-size) * 2);
             aspect-ratio: 1;
 
             background-color: var(--check-color);

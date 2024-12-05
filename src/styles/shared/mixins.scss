@@ -4,18 +4,22 @@
 
 @mixin size-xs {
     --multiplier: 0.5;
+    --dynamic-border-size: 1px;
 }
 
 @mixin size-sm {
     --multiplier: 0.75;
+    --dynamic-border-size: 2px;
 }
 
 @mixin size-md {
     --multiplier: 1;
+    --dynamic-border-size: 2px;
 }
 
 @mixin size-lg {
     --multiplier: 1.5;
+    --dynamic-border-size: 3px;
 }
 
 @mixin off {

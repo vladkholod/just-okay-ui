@@ -1,5 +1,5 @@
-@import '../mixins.scss';
-@import '../variables.scss';
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
 
 .#{$lib-prefix}-tooltip {
     position: absolute;
@@ -11,7 +11,7 @@
     width: calc(200px * var(--multiplier));
     min-height: calc(30px * var(--multiplier));
 
-    border: 2px solid var(--outline-color);
+    border: var(--dynamic-border-size) solid var(--outline-color);
 
     background-color: var(--surface-variant-color);
     color: var(--on-surface-variant-color);
