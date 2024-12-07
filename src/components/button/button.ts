@@ -7,6 +7,7 @@ import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_VARIANT } from '../../models/variant';
 import { classNamesMatcher, contentMatcher, idMatcher } from '../../utils/element-builder';
 import { getInitComponentConfig } from '../../utils/get-init-component-config';
+import { defaultCallback } from '../../models/default-callback';
 
 export class Button implements Component, Disposable<void> {
     public readonly element: HTMLElement;
@@ -68,7 +69,7 @@ export class Button implements Component, Disposable<void> {
         const buttonConfig: Required<NonIconButtonConfig> = {
             size: config?.size ?? DEFAULT_SIZE,
             variant: config?.variant ?? DEFAULT_VARIANT,
-            onClick: config?.onClick ?? (() => { /* default */ }),
+            onClick: config?.onClick ?? defaultCallback,
             isIcon: false,
             content: config?.content ?? '',
             ...getInitComponentConfig(config),

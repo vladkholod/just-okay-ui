@@ -7,6 +7,7 @@ import { ModalConfig } from './modal-config';
 import { Component } from '../../models/component';
 import { classNamesMatcher, idMatcher } from '../../utils/element-builder';
 import { getInitComponentConfig } from '../../utils/get-init-component-config';
+import { defaultCallback } from '../../models/default-callback';
 
 export class Modal implements Component, Disposable<void> {
     public get element(): HTMLElement {
@@ -180,7 +181,7 @@ export class Modal implements Component, Disposable<void> {
             content: config.content,
             closeOnOutsideClick: config.closeOnOutsideClick ?? false,
             destroyOnClose: config.destroyOnClose ?? true,
-            onClose: config.onClose ?? (() => { /* default */ }),
+            onClose: config.onClose ?? defaultCallback,
             ...getInitComponentConfig(config),
         };
     }

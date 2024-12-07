@@ -1,0 +1,58 @@
+@import '../shared/mixins.scss';
+@import '../shared/variables.scss';
+
+.#{$lib-prefix}-textfield {
+    width: calc(300px * var(--multiplier));
+    min-height: apply-multiplier(40px);
+    font-size: apply-multiplier(var(--text-size));
+
+    border: var(--dynamic-border-size) solid var(--outline-color);
+
+    background-color: var(--surface-variant-color);
+    color: var(--on-surface-color);
+
+    cursor: text;
+
+    &:focus-visible {
+        outline: none;
+    }
+
+    &--primary {
+        &:hover {
+            background-color: var(--primary-fixed-color);
+            color: var(--on-primary-fixed-color);
+        }
+    }
+
+    &--secondary {
+        &:hover {
+            background-color: var(--secondary-fixed-color);
+            color: var(--on-secondary-fixed-color);
+        }
+    }
+
+    &--tertiary {
+        &:hover {
+            background-color: var(--tertiary-fixed-color);
+            color: var(--on-tertiary-fixed-color);
+        }
+    }
+
+    &--xs {
+        @include size-xs();
+    }
+
+    &--sm {
+        @include size-sm();
+    }
+
+    &--md {
+        @include size-md();
+    }
+
+    &--lg {
+        @include size-lg();
+    }
+
+    @include bgColorTransition;
+}

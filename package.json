@@ -29,7 +29,7 @@
   "homepage": "https://github.com/vladkholod/just-okay-ui#readme",
   "dependencies": {
     "@bqx/bem": "^1.0.1",
-    "@bqx/html-element-builder": "^1.1.2"
+    "@bqx/html-element-builder": "^2.0.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.3",

@@ -7,6 +7,7 @@ import { DEFAULT_SIZE } from '../../models/size';
 import { DEFAULT_VARIANT } from '../../models/variant';
 import { classNamesMatcher, idMatcher } from '../../utils/element-builder';
 import { getInitComponentConfig } from '../../utils/get-init-component-config';
+import { defaultCallback } from '../../models/default-callback';
 
 export class Checkbox implements Component, Disposable<void> {
     public get element(): HTMLElement {
@@ -134,7 +135,7 @@ export class Checkbox implements Component, Disposable<void> {
             checked: config.checked ?? false,
             size: config.size ?? DEFAULT_SIZE,
             variant: config.variant ?? DEFAULT_VARIANT,
-            onClick: config?.onClick ?? (() => { /* default */ }),
+            onClick: config?.onClick ?? defaultCallback,
             ...getInitComponentConfig(config),
         };
     }
