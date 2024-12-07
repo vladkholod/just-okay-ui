@@ -1,5 +1,14 @@
 # just-okay-ui
 
+The library contains UI components:
+- button
+- checkbox
+- loader
+- modal
+- textfield
+- tooltip
+
+
 ## Shared
 
 ### Config
