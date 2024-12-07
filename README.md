@@ -270,6 +270,40 @@ Shows the modal.
 
 Closes the modal.
 
+
+
+## Textfield
+
+### Config
+
+#### `size` - *optional*
+
+Value is one of `xs`, `sm`, `md`, `lg`.
+
+> Default: `md`
+
+
+#### `variant` - *optional*
+
+Value is one of `primary`, `secondary`, `tertiary`.
+
+> Default: `primary`
+
+
+#### `value` - *optional*
+
+Value of `string` type represents `input.value` attribute's value.
+
+### Callbacks
+
+#### `onChange`
+
+Callback function with argument of type `string`.
+
+The callback is fired on `change` event.
+
+
+
 ## Tooltip
 
 ### Config
