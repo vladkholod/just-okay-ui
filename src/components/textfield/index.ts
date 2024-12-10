@@ -1,2 +1,2 @@
-export { TextfieldConfig } from './textfield-config';
+export { TextfieldConfig, TextfieldWithLabelConfig } from './models';
 export { Textfield } from './textfield';

@@ -8,13 +8,25 @@
 
     border: var(--dynamic-border-size) solid var(--outline-color);
 
+    box-sizing: border-box;
+
     background-color: var(--surface-variant-color);
     color: var(--on-surface-color);
 
     cursor: text;
 
+    @include bgColorTransition;
+
+    &__label {
+        display: block;
+    }
+
     &:focus-visible {
         outline: none;
+    }
+
+    &--full-width {
+        width: 100%;
     }
 
     &--primary {
@@ -53,6 +65,4 @@
     &--lg {
         @include size-lg();
     }
-
-    @include bgColorTransition;
 }

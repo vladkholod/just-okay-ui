@@ -285,6 +285,20 @@ Closes the modal.
 
 ### Config
 
+#### `fullWidth` - *optional*
+
+Value of `boolean` type represents whether a component takes full width of its container.
+
+> Default: `false`
+
+#### `label` - *optional*
+
+Value of `string` type represents `HTMLLabelElement.textContent` attribute's value.
+
+#### `placeholder` - *optional*
+
+Value of `string` type represents `HTMLInputElement.placeholder` attribute's value.
+
 #### `size` - *optional*
 
 Value is one of `xs`, `sm`, `md`, `lg`.
@@ -301,7 +315,7 @@ Value is one of `primary`, `secondary`, `tertiary`.
 
 #### `value` - *optional*
 
-Value of `string` type represents `input.value` attribute's value.
+Value of `string` type represents `HTMLInputElement.value` attribute's value.
 
 ### Callbacks
 

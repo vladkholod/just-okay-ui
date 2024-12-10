@@ -1,82 +1,73 @@
-import { eb } from '@bqx/html-element-builder';
 import { Disposable } from '../../models/disposable';
 import { DEFAULT_SIZE } from '../../models/size';
-import { TextfieldConfig } from './textfield-config';
-import { classNames } from './class-names';
+import { InitializedTextfieldConfig, InitializedTextfieldWithLabelConfig, TextfieldConfig, TextfieldWithLabelConfig } from './models';
 import { Component } from '../../models/component';
-import { classNamesMatcher, idMatcher } from '../../utils/element-builder';
 import { getInitComponentConfig } from '../../utils/get-init-component-config';
 import { DEFAULT_VARIANT } from '../../models/variant';
 import { defaultCallback } from '../../models/default-callback';
-import { isEventTargetWithValue } from '../../utils/events';
+import { TextfieldDOM, TextfieldDOMBuilder } from './textfield-dom-builder';
 
+// TODO: fix scss for labeled and add full-width option
 export class Textfield implements Component, Disposable<void> {
-    private readonly config: Required<TextfieldConfig>;
-    public readonly element: HTMLInputElement;
+    public get element(): HTMLElement {
+        return this.containerElement ?? this.inputElement;
+    }
 
-    public get value(): string { 
+    private readonly config: InitializedTextfieldConfig | InitializedTextfieldWithLabelConfig;
+
+    private readonly inputElement: TextfieldDOM['input'];
+    private readonly labelElement: TextfieldDOM['label'];
+    private readonly containerElement: TextfieldDOM['container'];
+
+    private disposed = false;
+
+    public get value(): string {
         return this.config.value;
     }
 
-    public set value(value: string) { 
+    public set value(value: string) {
         this.config.value = value;
 
-        this.element.value = this.config.value;
+        this.inputElement.value = this.config.value;
         this.config.onChange(this.config.value);
     }
 
-    constructor(config: TextfieldConfig) {
+    constructor(config: TextfieldConfig | TextfieldWithLabelConfig) {
         this.config = Textfield.initConfig(config);
 
-        this.element = this.createDOM(this.config);
+        const textfieldDOMBuilder = new TextfieldDOMBuilder(this.config);
+        const { input, label, container } = textfieldDOMBuilder.build();
+        this.inputElement = input;
+        this.labelElement = label;
+        this.containerElement = container;
     }
-
-    private disposed = false;
 
     public dispose(): void {
         if (this.disposed) {
             return;
         }
 
-        this.element.remove();
+        this.inputElement.remove();
+        this.labelElement?.remove();
+        this.containerElement?.remove();
 
         this.disposed = true;
     }
 
-    private createDOM(config: Required<TextfieldConfig>): HTMLInputElement {
-        const inputElement = eb('input')
-            .withClass(
-                classNames.textfield.element,
-                classNames.textfield.modifiers.size[config.size],
-                classNames.textfield.modifiers.variant[config.variant],
-            )
-            .withListener('change', (event) => {
-                if (!isEventTargetWithValue(event.target)) {
-                    return;
-                }
-                this.config.value = event.target.value;
-                this.config.onChange(this.config.value);
-            })
-            .match(
-                () => config.value !== '',
-                (builder) => builder.withRawTransformation(element => element.value = config.value),
-            )
-            .match(...idMatcher(config.id))
-            .match(...classNamesMatcher(config.classNames))
-            .withRawTransformation(element => element.value = config.value)
-            .build();
-
-        return inputElement;
-    }
-
-    private static initConfig(config: TextfieldConfig): Required<TextfieldConfig> {
-        return {
+    private static initConfig(config: TextfieldConfig | TextfieldWithLabelConfig): InitializedTextfieldConfig | InitializedTextfieldWithLabelConfig {
+        const initializedConfig: InitializedTextfieldConfig = {
             value: config.value ?? '',
+            placeholder: config.placeholder ?? '',
+            fullWidth: config.fullWidth ?? false,
             size: config.size ?? DEFAULT_SIZE,
             variant: config.variant ?? DEFAULT_VARIANT,
             onChange: config.onChange ?? defaultCallback,
             ...getInitComponentConfig(config),
         };
-    }
 
+        const maybeLabeledConfig = config as Partial<TextfieldWithLabelConfig>;
+        return maybeLabeledConfig.label !== undefined
+            ? { ...initializedConfig, label: maybeLabeledConfig.label ?? '' }
+            : initializedConfig;
+    }
 }
