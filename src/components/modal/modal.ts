@@ -80,7 +80,8 @@ export class Modal implements Component, Disposable<void> {
             return;
         }
 
-        this.element.remove();
+        this.overlayElement.remove();
+        this.modalElement.remove();
         this.closeElement.remove();
 
         this.disposed = true;

@@ -58,7 +58,7 @@ export class Loader implements Component, Disposable<void> {
         this.disposed = true;
     }
 
-    private static createDOM(config: Required<Omit<LoaderConfig, 'container'>>): HTMLElement {
+    private static createDOM(config: Required<LoaderConfig>): HTMLElement {
         const pointerElement = eb('div')
             .withClass(classNames.loader.pointer.element)
             .build();
